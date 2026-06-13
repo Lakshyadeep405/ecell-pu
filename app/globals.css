@@ -1,0 +1,339 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ─── E-Cell PU light/dark brand theme ─── */
+:root {
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
+  --card: #FFFFFF;
+  --card-foreground: #0A0A0A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0A0A0A;
+  --primary: #0A0A0A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #1F2937;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F3F4F6;
+  --muted-foreground: #4B5563;
+  --accent: #D4AF37;
+  --accent-foreground: #0A0A0A;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #0A0A0A;
+  --input: #E5E7EB;
+  --ring: #D4AF37;
+  --chart-1: #0A0A0A;
+  --chart-2: #1F2937;
+  --chart-3: #D4AF37;
+  --chart-4: #4B5563;
+  --chart-5: #9CA3AF;
+  --radius: 0px; /* Sharp corners for Brutalist look */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0A0A0A;
+  --sidebar-primary: #0A0A0A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F3F4F6;
+  --sidebar-accent-foreground: #0A0A0A;
+  --sidebar-border: #0A0A0A;
+  --sidebar-ring: #D4AF37;
+  --border-pattern: rgba(0, 0, 0, 0.03);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #0A0A0B;
+    --foreground: #F9FAFB;
+    --card: #121214;
+    --card-foreground: #F9FAFB;
+    --popover: #121214;
+    --popover-foreground: #F9FAFB;
+    --primary: #F9FAFB;
+    --primary-foreground: #0A0A0B;
+    --secondary: #1F2937;
+    --secondary-foreground: #F9FAFB;
+    --muted: #1A1A1E;
+    --muted-foreground: #9CA3AF;
+    --accent: #D4AF37;
+    --accent-foreground: #0A0A0B;
+    --border: #F9FAFB;
+    --input: #1F2937;
+    --ring: #D4AF37;
+    --sidebar: #121214;
+    --sidebar-foreground: #F9FAFB;
+    --sidebar-primary: #F9FAFB;
+    --sidebar-primary-foreground: #0A0A0B;
+    --sidebar-accent: #1A1A1E;
+    --sidebar-accent-foreground: #F9FAFB;
+    --sidebar-border: #F9FAFB;
+    --sidebar-ring: #D4AF37;
+    --border-pattern: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.dark {
+  --background: #0A0A0B;
+  --foreground: #F9FAFB;
+  --card: #121214;
+  --card-foreground: #F9FAFB;
+  --popover: #121214;
+  --popover-foreground: #F9FAFB;
+  --primary: #F9FAFB;
+  --primary-foreground: #0A0A0B;
+  --secondary: #1F2937;
+  --secondary-foreground: #F9FAFB;
+  --muted: #1A1A1E;
+  --muted-foreground: #9CA3AF;
+  --accent: #D4AF37;
+  --accent-foreground: #0A0A0B;
+  --border: #F9FAFB;
+  --input: #1F2937;
+  --ring: #D4AF37;
+  --sidebar: #121214;
+  --sidebar-foreground: #F9FAFB;
+  --sidebar-primary: #F9FAFB;
+  --sidebar-primary-foreground: #0A0B0A;
+  --sidebar-accent: #1A1A1E;
+  --sidebar-accent-foreground: #F9FAFB;
+  --sidebar-border: #F9FAFB;
+  --sidebar-ring: #D4AF37;
+  --border-pattern: rgba(255, 255, 255, 0.03);
+}
+
+.light {
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
+  --card: #FFFFFF;
+  --card-foreground: #0A0A0A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0A0A0A;
+  --primary: #0A0A0A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #1F2937;
+  --secondary-foreground: #FFFFFF;
+  --muted: #F3F4F6;
+  --muted-foreground: #4B5563;
+  --accent: #D4AF37;
+  --accent-foreground: #0A0A0A;
+  --border: #0A0A0A;
+  --input: #E5E7EB;
+  --ring: #D4AF37;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0A0A0A;
+  --sidebar-primary: #0A0A0A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F3F4F6;
+  --sidebar-accent-foreground: #0A0A0A;
+  --sidebar-border: #0A0A0A;
+  --sidebar-ring: #D4AF37;
+  --border-pattern: rgba(0, 0, 0, 0.03);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #FFFFFF; }
+::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 2px; }
+
+/* ─── Gradient text helpers ─── */
+.gradient-text {
+  background: linear-gradient(135deg, #D4AF37, #AA7C11);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-green {
+  background: linear-gradient(135deg, #1F2937, #4B5563);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Team Showcase Layout (Pure CSS — no Tailwind needed) ─── */
+.team-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  user-select: none;
+}
+
+.team-inner-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.team-photos-col {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+.team-names-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding-top: 0.5rem;
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .team-inner-row {
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-start;
+  }
+  .team-photos-col {
+    flex-shrink: 0;
+    overflow-x: visible;
+    padding-bottom: 0;
+    gap: 0.75rem;
+    justify-content: flex-start;
+  }
+  .team-names-col {
+    margin-left: 80px;
+    flex-grow: 1;
+  }
+}
+
+/* ─── New Members Card Grid ─── */
+.members-grid-new {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem 1.5rem;
+  width: 100%;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 0 3rem 0;
+  position: relative;
+  isolation: isolate;
+}
+
+.member-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.member-card-wrapper:hover {
+  z-index: 10;
+}
+
+.member-photo-size {
+  width: 100%;
+  aspect-ratio: 3/4;
+  max-width: 180px;
+}
+
+.member-card-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-top: 0.75rem;
+  text-align: center;
+  width: 100%;
+  max-width: 180px;
+}
+
+.member-card-name {
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.member-card-role {
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 700;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D4AF37;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
