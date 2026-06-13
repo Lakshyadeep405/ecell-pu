@@ -325,10 +325,10 @@ export default function ScrollHero() {
   
           {/* ── MID TEXT (30–55%) ── */}
           <div
-            className="absolute inset-0 flex items-center justify-start pl-[8%] pointer-events-none transition-opacity duration-300"
+            className="absolute inset-0 flex items-center justify-center md:justify-start px-6 md:px-0 md:pl-[8%] pointer-events-none transition-opacity duration-300"
             style={{ opacity: midOpacity }}
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
               <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3 py-1 w-fit bg-background shadow-[3px_3px_0px_#D4AF37]">
                 Innovation
               </span>
@@ -344,11 +344,11 @@ export default function ScrollHero() {
   
           {/* ── END TEXT (70–100%) ── */}
           <div
-            className="absolute inset-0 flex items-center justify-end pr-[8%] transition-opacity duration-300 pointer-events-none"
+            className="absolute inset-0 flex items-center justify-center md:justify-end px-6 md:px-0 md:pr-[8%] transition-opacity duration-300 pointer-events-none"
             style={{ opacity: endOpacity }}
           >
             <div 
-              className="flex flex-col items-end gap-4 text-right"
+              className="flex flex-col items-center md:items-end gap-4 text-center md:text-right"
               style={{ pointerEvents: endOpacity > 0.5 ? "auto" : "none" }}
             >
               <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3 py-1 bg-background shadow-[3px_3px_0px_#D4AF37]">

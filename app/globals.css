@@ -269,8 +269,8 @@
 /* ─── New Members Card Grid ─── */
 .members-grid-new {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 1rem;
   width: 100%;
   max-width: 780px;
   margin-left: auto;
@@ -278,6 +278,13 @@
   padding: 1rem 0 3rem 0;
   position: relative;
   isolation: isolate;
+}
+
+@media (min-width: 640px) {
+  .members-grid-new {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 1.5rem;
+  }
 }
 
 .member-card-wrapper {
@@ -297,7 +304,13 @@
 .member-photo-size {
   width: 100%;
   aspect-ratio: 3/4;
-  max-width: 180px;
+  max-width: 130px;
+}
+
+@media (min-width: 640px) {
+  .member-photo-size {
+    max-width: 180px;
+  }
 }
 
 .member-card-label {
@@ -308,13 +321,19 @@
   margin-top: 0.75rem;
   text-align: center;
   width: 100%;
-  max-width: 180px;
+  max-width: 130px;
+}
+
+@media (min-width: 640px) {
+  .member-card-label {
+    max-width: 180px;
+  }
 }
 
 .member-card-name {
   font-family: var(--font-outfit), sans-serif;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   line-height: 1.2;
   letter-spacing: -0.01em;
   text-transform: uppercase;
@@ -325,15 +344,28 @@
   width: 100%;
 }
 
+@media (min-width: 640px) {
+  .member-card-name {
+    font-size: 0.85rem;
+  }
+}
+
 .member-card-role {
   font-family: var(--font-outfit), sans-serif;
   font-weight: 700;
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #D4AF37;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+}
+
+@media (min-width: 640px) {
+  .member-card-role {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+  }
 }
