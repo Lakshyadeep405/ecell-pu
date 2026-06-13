@@ -308,7 +308,7 @@ export default function ScrollHero() {
             </p>
             <h1
               className="font-[family-name:var(--font-outfit)] font-black leading-[1.05] tracking-tight text-white mb-5 uppercase"
-              style={{ fontSize: "clamp(2.4rem, 6vw, 5.5rem)", textShadow: "3px 3px 0px #D4AF37" }}
+              style={{ fontSize: "clamp(1.7rem, 6vw, 5.5rem)", textShadow: "3px 3px 0px #D4AF37" }}
             >
               Ignite Your<br />
               <span className="gradient-text">Entrepreneurial</span><br />

@@ -270,6 +270,8 @@
 .members-grid-new {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: start;
   gap: 1.5rem 1rem;
   width: 100%;
   max-width: 780px;
@@ -295,22 +297,21 @@
   cursor: pointer;
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 130px;
+  min-width: 0;
 }
 
-.member-card-wrapper:hover {
-  z-index: 10;
+@media (min-width: 640px) {
+  .member-card-wrapper {
+    max-width: 180px;
+  }
 }
 
 .member-photo-size {
   width: 100%;
   aspect-ratio: 3/4;
-  max-width: 130px;
-}
-
-@media (min-width: 640px) {
-  .member-photo-size {
-    max-width: 180px;
-  }
+  max-width: 100%;
 }
 
 .member-card-label {
@@ -321,13 +322,8 @@
   margin-top: 0.75rem;
   text-align: center;
   width: 100%;
-  max-width: 130px;
-}
-
-@media (min-width: 640px) {
-  .member-card-label {
-    max-width: 180px;
-  }
+  max-width: 100%;
+  min-width: 0;
 }
 
 .member-card-name {

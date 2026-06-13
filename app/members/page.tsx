@@ -161,7 +161,7 @@ export default function MembersPage() {
 
           {/* Grid Layout */}
           {filteredMembers.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 max-w-5xl mx-auto justify-items-center">
               {filteredMembers.map((member) => {
                 const isActive = hoveredId === member.id;
                 const isDimmed = hoveredId !== null && !isActive;
@@ -169,7 +169,7 @@ export default function MembersPage() {
                 return (
                   <div
                     key={member.id}
-                    className="flex flex-col items-center cursor-pointer group relative"
+                    className="flex flex-col items-center cursor-pointer group relative w-full max-w-[130px] sm:max-w-[170px] min-w-0"
                     onPointerEnter={() => setHoveredId(member.id)}
                     onPointerLeave={() => setHoveredId(null)}
                     onClick={(e) => {
@@ -180,7 +180,7 @@ export default function MembersPage() {
                     {/* Card container */}
                     <div
                       className={cn(
-                        "overflow-hidden rounded-none cursor-pointer transition-all duration-300 relative border-2 border-border w-full aspect-[3/4] max-w-[170px]",
+                        "overflow-hidden rounded-none cursor-pointer transition-all duration-300 relative border-2 border-border w-full aspect-[3/4]",
                         isDimmed ? "opacity-30" : "opacity-100",
                         isActive
                           ? "-translate-x-1 -translate-y-1 shadow-[4px_4px_0px_var(--primary)]"
@@ -219,7 +219,7 @@ export default function MembersPage() {
                     </div>
 
                     {/* Label */}
-                    <div className="flex flex-col items-center gap-1 mt-4 text-center w-full max-w-[170px]">
+                    <div className="flex flex-col items-center gap-1 mt-4 text-center w-full min-w-0">
                       <span
                         className="font-[family-name:var(--font-outfit)] font-extrabold text-xs uppercase tracking-tight line-clamp-1 w-full transition-colors"
                         style={{ color: isActive ? "#D4AF37" : "var(--foreground)" }}
