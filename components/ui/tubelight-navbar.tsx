@@ -77,17 +77,10 @@ export function NavBar({ items, className }: NavBarProps) {
           const Icon = item.icon
           const isActive = activeTab === item.name
 
-          return (
-            <Link
-              key={item.name}
-              href={item.url}
-              onClick={() => setActiveTab(item.name)}
-              className={cn(
-                "relative cursor-pointer text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 rounded-full transition-colors",
-                "text-foreground/80 hover:text-primary",
-                isActive && "bg-muted text-primary",
-              )}
-            >
+          const isExternal = item.url.startsWith("/")
+
+          const linkContent = (
+            <>
               <span className="hidden md:inline">{item.name}</span>
               <span className="md:hidden">
                 <Icon size={18} strokeWidth={2.5} />
@@ -110,6 +103,31 @@ export function NavBar({ items, className }: NavBarProps) {
                   </div>
                 </motion.div>
               )}
+            </>
+          )
+
+          const linkClass = cn(
+            "relative cursor-pointer text-xs sm:text-sm font-semibold px-3 sm:px-6 py-2 rounded-full transition-colors",
+            "text-foreground/80 hover:text-primary",
+            isActive && "bg-muted text-primary",
+          )
+
+          return isExternal ? (
+            <a
+              key={item.name}
+              href={item.url}
+              className={linkClass}
+            >
+              {linkContent}
+            </a>
+          ) : (
+            <Link
+              key={item.name}
+              href={item.url}
+              onClick={() => setActiveTab(item.name)}
+              className={linkClass}
+            >
+              {linkContent}
             </Link>
           )
         })}

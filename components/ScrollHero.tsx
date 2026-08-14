@@ -146,6 +146,7 @@ export default function ScrollHero() {
   const [heroOpacity, setHeroOpacity] = useState(1);
   const [midOpacity, setMidOpacity] = useState(0);
   const [endOpacity, setEndOpacity] = useState(0);
+  const [isPastHero, setIsPastHero] = useState(false);
 
   // Draw a frame onto canvas (cover-fit)
   function drawFrame(index: number) {
@@ -248,6 +249,9 @@ export default function ScrollHero() {
       );
       // End text: 70→100%
       setEndOpacity(Math.min(1, progress < 0.70 ? 0 : (progress - 0.70) / 0.10));
+
+      // Disable pointer events when scrolled past the hero track
+      setIsPastHero(progress >= 0.95);
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -283,7 +287,10 @@ export default function ScrollHero() {
         id="home"
       >
         {/* Sticky viewport */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
+        <div 
+          className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none"
+          style={{ display: isPastHero ? "none" : "block" }}
+        >
           {/* Canvas */}
           <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
@@ -349,7 +356,7 @@ export default function ScrollHero() {
           >
             <div 
               className="flex flex-col items-center md:items-end gap-4 text-center md:text-right"
-              style={{ pointerEvents: endOpacity > 0.5 ? "auto" : "none" }}
+              style={{ pointerEvents: !isPastHero && endOpacity > 0.5 ? "auto" : "none" }}
             >
               <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3 py-1 bg-background shadow-[3px_3px_0px_#D4AF37]">
                 E-Cell JNCT PU

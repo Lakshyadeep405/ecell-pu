@@ -1,12 +1,20 @@
 "use client";
 
-import { Home, User, Users, CalendarDays, Mail, Rocket, Handshake, Lightbulb, Trophy } from "lucide-react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Home, User, Users, CalendarDays, Mail, Rocket, Handshake, Lightbulb, Trophy, LogIn } from "lucide-react";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 import ScrollHero from "@/components/ScrollHero";
-import MembersSection from "@/components/MembersSection";
 import StatsSection from "@/components/StatsSection";
 import { cn } from "@/lib/utils";
 import { FeatureGrid } from "@/components/ui/modern-feature-grid";
+import { supabase } from "@/lib/supabase";
+
+const DEFAULT_HIGHLIGHTS = [
+  { id: "default-1", day: "24", month: "JUN", tag: "Flagship", title: "StartUp Summit 2026", desc: "The biggest entrepreneurship summit at JNCT PU — pitches, panels, and prizes.", featured: true },
+  { id: "default-2", day: "05", month: "JUL", tag: "Workshop", title: "Pitch Perfect", desc: "Master the art of pitching your idea to investors in 60 seconds.", featured: false },
+  { id: "default-3", day: "18", month: "JUL", tag: "Hackathon", title: "InnoHack 2026", desc: "48-hour hackathon to solve real-world problems with tech and creativity.", featured: false },
+];
 
 const navItems = [
   { name: "Home", url: "#home", icon: Home },
@@ -14,6 +22,7 @@ const navItems = [
   { name: "Team", url: "#team", icon: Users },
   { name: "Events", url: "#events", icon: CalendarDays },
   { name: "Contact", url: "#contact", icon: Mail },
+  { name: "Portal", url: "/admin/login", icon: LogIn },
 ];
 
 const aboutFeatures = [
@@ -40,6 +49,46 @@ const aboutFeatures = [
 ];
 
 export default function Page() {
+  const [highlights, setHighlights] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function loadHighlights() {
+      try {
+        const { data, error } = await supabase
+          .from("events")
+          .select("*")
+          .eq("status", "published")
+          .order("date", { ascending: true })
+          .limit(3);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const mapped = data.map((ev: any, idx: number) => {
+            const evDate = new Date(ev.date);
+            const day = evDate.toLocaleDateString("en-IN", { day: "2-digit" });
+            const month = evDate.toLocaleDateString("en-IN", { month: "short" }).toUpperCase();
+            return {
+              id: ev.id,
+              day,
+              month,
+              tag: "INCUBATOR",
+              title: ev.title,
+              desc: ev.description || "No description provided.",
+              featured: idx === 0,
+            };
+          });
+          setHighlights(mapped);
+        } else {
+          setHighlights(DEFAULT_HIGHLIGHTS);
+        }
+      } catch (err) {
+        console.error("Error loading highlights:", err);
+        setHighlights(DEFAULT_HIGHLIGHTS);
+      }
+    }
+    loadHighlights();
+  }, []);
   return (
     <main className="flex flex-col min-h-screen">
       {/* ── TUBELIGHT NAVBAR ── */}
@@ -72,8 +121,38 @@ export default function Page() {
         />
       </section>
 
-      {/* ── MEMBERS / TEAM ── */}
-      <MembersSection />
+      {/* ── MEMBERS / TEAM BANNER ── */}
+      <section
+        id="team"
+        className="py-24 px-4 bg-background border-t-2 border-border"
+        role="region"
+        aria-label="Entrepreneurship Cell JNCT PU Team Members"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="relative overflow-hidden bg-card border-2 border-border rounded-none p-12 md:p-20 text-center shadow-[6px_6px_0px_#D4AF37] bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
+            <span className="relative inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#D4AF37]">
+              Our Squad
+            </span>
+            <h2
+              className="relative font-[family-name:var(--font-outfit)] font-black uppercase text-foreground mb-6 tracking-tight"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", textShadow: "3px 3px 0px #00FF66" }}
+            >
+              Meet the <span className="gradient-text">Visionaries</span>
+            </h2>
+            <p className="relative max-w-xl mx-auto text-base text-muted-foreground leading-relaxed mb-10">
+              The dedicated team of student leaders, builders, and entrepreneurs working to foster startup culture and drive innovation at JNCT PU.
+            </p>
+            <div className="relative">
+              <a
+                href="/team"
+                className="inline-block px-10 py-4 text-sm font-black text-foreground uppercase tracking-wider transition-all duration-200 border-2 border-border bg-background shadow-[5px_5px_0px_#D4AF37] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[7px_7px_0px_#D4AF37] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#D4AF37] cursor-pointer"
+              >
+                Meet the E-Cell Team
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── EVENTS ── */}
       <section id="events" className="py-24 px-4 bg-background border-t-2 border-border">
@@ -89,15 +168,12 @@ export default function Page() {
           </h2>
 
           <div className="flex flex-col gap-6">
-            {[
-              { day: "24", month: "JUN", tag: "Flagship", title: "StartUp Summit 2026", desc: "The biggest entrepreneurship summit at JNCT PU — pitches, panels, and prizes.", featured: true },
-              { day: "05", month: "JUL", tag: "Workshop", title: "Pitch Perfect", desc: "Master the art of pitching your idea to investors in 60 seconds.", featured: false },
-              { day: "18", month: "JUL", tag: "Hackathon", title: "InnoHack 2026", desc: "48-hour hackathon to solve real-world problems with tech and creativity.", featured: false },
-            ].map((ev) => (
-              <div
-                key={ev.title}
+            {highlights.map((ev) => (
+              <Link
+                key={ev.id}
+                href={ev.id.startsWith("default-") ? "/events" : `/events/${ev.id}/register`}
                 className={cn(
-                  "flex items-center gap-6 rounded-none p-6 transition-all duration-300 cursor-default border-2 border-border",
+                  "flex items-center gap-6 rounded-none p-6 transition-all duration-300 border-2 border-border cursor-pointer group",
                   ev.featured
                     ? "bg-card shadow-[4px_4px_0px_#00FF66] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#00FF66]"
                     : "bg-card shadow-[3px_3px_0px_#FFDE00] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#FFDE00]"
@@ -105,8 +181,10 @@ export default function Page() {
               >
                 <div
                   className={cn(
-                    "flex flex-col items-center justify-center h-16 w-16 min-w-[64px] rounded-none border-2 border-border p-2",
-                    ev.featured ? "bg-[#D4AF37] text-black font-black" : "bg-[#FFDE00] text-black font-black"
+                    "flex flex-col items-center justify-center h-16 w-16 min-w-[64px] rounded-none border-2 border-border p-2 transition-colors",
+                    ev.featured 
+                      ? "bg-[#D4AF37] text-black font-black group-hover:bg-[#AA7C11]" 
+                      : "bg-[#FFDE00] text-black font-black group-hover:bg-[#D4AF37]"
                   )}
                 >
                   <span className="font-[family-name:var(--font-outfit)] text-2xl font-black leading-none">
@@ -121,12 +199,12 @@ export default function Page() {
                   )}>
                     {ev.tag}
                   </span>
-                  <h3 className="font-[family-name:var(--font-outfit)] text-xl font-black uppercase text-foreground mt-1 mb-2">
+                  <h3 className="font-[family-name:var(--font-outfit)] text-xl font-black uppercase text-foreground mt-1 mb-2 group-hover:text-[#D4AF37] transition-colors">
                     {ev.title}
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{ev.desc}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

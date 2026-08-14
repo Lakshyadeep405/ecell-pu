@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { FaLinkedinIn, FaTwitter, FaBehance, FaInstagram } from 'react-icons/fa';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 
 export interface TeamMember {
   id: string;
@@ -311,6 +312,36 @@ function MemberRow({
  ───────────────────────────────────────── */
 
 export default function MembersSection() {
+  const [members, setMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadMembers() {
+      try {
+        const { data, error } = await supabase
+          .from("members")
+          .select("*")
+          .eq("domain", "core")
+          .order("display_order", { ascending: true });
+        if (error) throw error;
+        if (data && data.length > 0) {
+          const mapped: TeamMember[] = data.map((m: any) => ({
+            id: m.id,
+            name: m.name,
+            role: m.role,
+            image: m.photo_url || "",
+          }));
+          setMembers(mapped);
+        }
+      } catch (err) {
+        console.error("Error loading team members:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadMembers();
+  }, []);
+
   return (
     <section
       id="team"
@@ -333,16 +364,16 @@ export default function MembersSection() {
         </div>
 
         {/* Team Showcase component */}
-        <TeamShowcase />
+        <TeamShowcase members={members.length > 0 ? members : undefined} />
 
         {/* View All Members Button */}
         <div className="mt-16 text-center">
-          <Link
-            href="/members"
+          <a
+            href="/team"
             className="inline-block px-8 py-3.5 text-sm font-black text-foreground uppercase tracking-wider transition-all duration-200 border-2 border-border bg-background shadow-[4px_4px_0px_#D4AF37] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#D4AF37] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#D4AF37] cursor-pointer"
           >
             More Members
-          </Link>
+          </a>
         </div>
       </div>
     </section>
