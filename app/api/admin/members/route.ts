@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { requireAdmin } from "@/lib/auth";
 
 export async function GET(request: Request) {
+  const authError = await requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const { data: members, error } = await supabaseAdmin
       .from("members")
@@ -10,15 +14,17 @@ export async function GET(request: Request) {
       .order("created_at", { ascending: true });
 
     if (error) throw error;
-
     return NextResponse.json({ success: true, members });
   } catch (error: any) {
     console.error("GET members error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to fetch members." }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
+  const authError = await requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const body = await request.json();
     const { name, role, domain, photo_url, display_order } = body;
@@ -43,10 +49,9 @@ export async function POST(request: Request) {
       .single();
 
     if (error) throw error;
-
     return NextResponse.json({ success: true, member });
   } catch (error: any) {
     console.error("POST member error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to add member." }, { status: 500 });
   }
 }

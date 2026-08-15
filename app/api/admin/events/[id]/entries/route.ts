@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { requireAdmin } from "@/lib/auth";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authError = await requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const { id } = await params;
 
-    // 1. Fetch Event Details
     const { data: event, error: eventError } = await supabaseAdmin
       .from("events")
       .select("*")
@@ -17,7 +20,6 @@ export async function GET(
 
     if (eventError) throw eventError;
 
-    // 2. Fetch Event Registrations
     const { data: registrations, error: regError } = await supabaseAdmin
       .from("event_registrations")
       .select("*")
@@ -26,13 +28,9 @@ export async function GET(
 
     if (regError) throw regError;
 
-    return NextResponse.json({
-      success: true,
-      event,
-      registrations,
-    });
+    return NextResponse.json({ success: true, event, registrations });
   } catch (error: any) {
     console.error("GET event registrations error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to fetch registrations." }, { status: 500 });
   }
 }

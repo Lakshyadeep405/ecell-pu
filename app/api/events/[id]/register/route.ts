@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { checkRateLimit, getClientIp } from "@/lib/auth";
 
 export async function GET(
   request: Request,
@@ -8,7 +9,6 @@ export async function GET(
   try {
     const { id } = await params;
 
-    // 1. Fetch Event Details (Must be published or closed)
     const { data: event, error: eventError } = await supabaseAdmin
       .from("events")
       .select("*")
@@ -19,7 +19,6 @@ export async function GET(
       return NextResponse.json({ success: false, error: "Event not found." }, { status: 404 });
     }
 
-    // 2. Fetch Custom Registration Fields
     const { data: fields, error: fieldsError } = await supabaseAdmin
       .from("event_fields")
       .select("*")
@@ -28,14 +27,10 @@ export async function GET(
 
     if (fieldsError) throw fieldsError;
 
-    return NextResponse.json({
-      success: true,
-      event,
-      fields: fields || [],
-    });
+    return NextResponse.json({ success: true, event, fields: fields || [] });
   } catch (error: any) {
     console.error("GET event form data error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to load event." }, { status: 500 });
   }
 }
 
@@ -43,8 +38,17 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Rate limit: max 3 registrations per IP per hour per event
+  const ip = getClientIp(request);
+  const { id } = await params;
+  if (!checkRateLimit(`register:${ip}:${id}`, 3, 60 * 60 * 1000)) {
+    return NextResponse.json(
+      { success: false, error: "Too many registration attempts. Please try again later." },
+      { status: 429 }
+    );
+  }
+
   try {
-    const { id } = await params;
     const body = await request.json();
     const { submitted_data } = body;
 
@@ -55,7 +59,6 @@ export async function POST(
       );
     }
 
-    // Basic verification of event state
     const { data: event, error: eventError } = await supabaseAdmin
       .from("events")
       .select("status")
@@ -80,24 +83,19 @@ export async function POST(
       );
     }
 
-    // Verify required standard fields are present in submitted_data
     const standardFields = ["Name", "Email", "Phone", "College", "Year"];
     for (const f of standardFields) {
       if (!submitted_data[f] || !String(submitted_data[f]).trim()) {
         return NextResponse.json(
-          { success: false, error: `Base field '${f}' is required.` },
+          { success: false, error: `Field '${f}' is required.` },
           { status: 400 }
         );
       }
     }
 
-    // Write registration
     const { data: registration, error: regError } = await supabaseAdmin
       .from("event_registrations")
-      .insert({
-        event_id: id,
-        submitted_data,
-      })
+      .insert({ event_id: id, submitted_data })
       .select()
       .single();
 
@@ -106,6 +104,6 @@ export async function POST(
     return NextResponse.json({ success: true, registration });
   } catch (error: any) {
     console.error("POST event registration error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to submit registration." }, { status: 500 });
   }
 }
