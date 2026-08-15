@@ -33,11 +33,11 @@ export async function generateMetadata({
   try {
     const { data: event } = await supabase
       .from("events")
-      .select("title, description")
+      .select("title, description, status")
       .eq("id", id)
       .single();
 
-    if (!event) {
+    if (!event || event.status === "draft") {
       return {
         title: "Registration Form | E-Cell JNCT PU",
         description: "Join upcoming entrepreneurship events at JNCT Professional University.",

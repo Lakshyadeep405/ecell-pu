@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
 import { 
   ArrowLeft, 
   Plus, 
@@ -80,25 +79,39 @@ export default function MembersAdminPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Client-side validations
+    const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedMimeTypes.includes(file.type)) {
+      alert("Invalid file type. Only JPG, PNG, and WebP images are allowed.");
+      e.target.value = "";
+      return;
+    }
+
+    const maxSizeBytes = 5 * 1024 * 1024;
+    if (file.size > maxSizeBytes) {
+      alert("File is too large. Maximum allowed size is 5MB.");
+      e.target.value = "";
+      return;
+    }
+
     setUploading(true);
     try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-      const filePath = `members/${fileName}`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("type", "member");
 
-      const { error: uploadError } = await supabase.storage
-        .from("ecell-assets")
-        .upload(filePath, file, { cacheControl: "3600", upsert: true });
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-      if (uploadError) {
-        throw new Error(
-          uploadError.message + 
-          ". Note: Ensure a public bucket named 'ecell-assets' exists in your Supabase dashboard."
-        );
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to upload photo.");
       }
 
-      const { data } = supabase.storage.from("ecell-assets").getPublicUrl(filePath);
-      setPhotoUrl(data.publicUrl);
+      setPhotoUrl(data.url);
     } catch (err: any) {
       console.error(err);
       alert(err.message || "Photo upload failed. Please try pasting a direct URL instead.");

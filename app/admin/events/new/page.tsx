@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
 import { 
   ArrowLeft, 
   Plus, 
@@ -66,28 +65,40 @@ export default function NewEventPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Client-side validations
+    const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedMimeTypes.includes(file.type)) {
+      setError("Invalid file type. Only JPG, PNG, and WebP images are allowed.");
+      e.target.value = "";
+      return;
+    }
+
+    const maxSizeBytes = 5 * 1024 * 1024;
+    if (file.size > maxSizeBytes) {
+      setError("File is too large. Maximum allowed size is 5MB.");
+      e.target.value = "";
+      return;
+    }
+
     setUploading(true);
     setError(null);
     try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-      const filePath = `banners/${fileName}`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("type", "banner");
 
-      // Upload file to ecell-assets bucket
-      const { error: uploadError } = await supabase.storage
-        .from("ecell-assets")
-        .upload(filePath, file, { cacheControl: "3600", upsert: true });
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-      if (uploadError) {
-        throw new Error(
-          uploadError.message + 
-          ". Note: Make sure a public bucket named 'ecell-assets' exists in your Supabase dashboard."
-        );
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to upload banner.");
       }
 
-      // Get public URL
-      const { data } = supabase.storage.from("ecell-assets").getPublicUrl(filePath);
-      setBannerUrl(data.publicUrl);
+      setBannerUrl(data.url);
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Failed to upload image. Paste a direct link instead.");
