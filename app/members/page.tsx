@@ -87,11 +87,11 @@ export default function MembersPage() {
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       {/* Header Bar */}
-      <nav className="border-b-2 border-border py-4 px-6 bg-card sticky top-0 z-40 backdrop-blur-md bg-opacity-80">
+      <nav className="border-b border-border py-4 px-6 bg-card sticky top-0 z-40 backdrop-blur-md bg-opacity-80">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2 px-4 py-2 border-2 border-border bg-background text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37] transition-all duration-150 cursor-pointer"
+            className="clay-btn clay-btn-secondary flex items-center gap-2 px-4 py-2 text-xs"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
@@ -107,12 +107,11 @@ export default function MembersPage() {
         <div className="max-w-6xl mx-auto">
           {/* Header Title */}
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#00FF66]">
+            <span className="clay-badge px-3.5 py-1.5 mb-6 bg-background/50 text-foreground">
               E-Cell JNCT PU Team
             </span>
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground uppercase font-[family-name:var(--font-outfit)]"
-              style={{ textShadow: "3px 3px 0px #D4AF37" }}
             >
               Meet the Entire <span className="gradient-text">Squad</span>
             </h1>
@@ -131,7 +130,7 @@ export default function MembersPage() {
                 placeholder="Search by name or role..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-card border-2 border-border text-foreground font-semibold placeholder-muted-foreground focus:outline-none focus:border-[#D4AF37] shadow-[3px_3px_0px_#0A0A0A] dark:shadow-[3px_3px_0px_#F9FAFB] transition-all"
+                className="w-full pl-12 pr-4 py-3 bg-card border border-border text-foreground font-semibold placeholder-muted-foreground focus:outline-none focus:border-[#D4AF37] transition-all clay-input"
               />
             </div>
 
@@ -145,10 +144,10 @@ export default function MembersPage() {
                     key={dom.id}
                     onClick={() => setSelectedDomain(dom.id)}
                     className={cn(
-                      "flex items-center gap-2 px-4 py-2 border-2 border-border text-xs font-black uppercase tracking-wider transition-all duration-150 cursor-pointer",
+                      "clay-btn flex items-center gap-2 px-4 py-2 text-xs transition-all duration-150",
                       isSelected
-                        ? "bg-[#D4AF37] text-black shadow-[2px_2px_0px_#0A0A0A] dark:shadow-[2px_2px_0px_#F9FAFB]"
-                        : "bg-card text-foreground shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37]"
+                        ? "clay-btn-primary"
+                        : "clay-btn-secondary"
                     )}
                   >
                     <DomIcon className="w-3.5 h-3.5" />
@@ -180,11 +179,11 @@ export default function MembersPage() {
                     {/* Card container */}
                     <div
                       className={cn(
-                        "overflow-hidden rounded-none cursor-pointer transition-all duration-300 relative border-2 border-border w-full aspect-[3/4]",
+                        "overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 relative border border-border w-full aspect-[3/4]",
                         isDimmed ? "opacity-30" : "opacity-100",
                         isActive
-                          ? "-translate-x-1 -translate-y-1 shadow-[4px_4px_0px_var(--primary)]"
-                          : "shadow-[2px_2px_0px_#D4AF37]"
+                          ? "clay-card-gold scale-102"
+                          : "clay-card"
                       )}
                     >
                       {/* Fallback Graphic */}
@@ -235,7 +234,7 @@ export default function MembersPage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-20 border-2 border-dashed border-border bg-card max-w-xl mx-auto">
+            <div className="text-center py-20 clay-card max-w-xl mx-auto">
               <p className="text-muted-foreground font-black uppercase text-sm tracking-widest">
                 No squad members found matching filters
               </p>
@@ -244,7 +243,7 @@ export default function MembersPage() {
                   setSearchQuery("");
                   setSelectedDomain("all");
                 }}
-                className="mt-6 px-6 py-2.5 border-2 border-border bg-background text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37] transition-all cursor-pointer"
+                className="mt-6 clay-btn clay-btn-secondary px-6 py-2.5 text-xs"
               >
                 Reset Filters
               </button>
@@ -253,14 +252,19 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* Footer Copy */}
-      <footer className="border-t-2 border-border py-8 px-6 bg-card mt-auto">
+      <footer className="border-t border-border py-8 px-6 bg-card mt-auto">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div className="font-[family-name:var(--font-outfit)] text-lg font-black">
-            <span className="text-primary">E-Cell</span> <span className="text-[#D4AF37]">JNCT PU</span>
+          <div className="flex items-center gap-1.5 justify-center sm:justify-start">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.jpg"
+              alt="E-Cell JNCT PU Logo"
+              className="w-5 h-5 rounded-full border border-white/10"
+            />
+            <span className="font-[family-name:var(--font-outfit)] text-sm font-bold text-white">E-Cell JNCT PU</span>
           </div>
           <p className="text-muted-foreground text-xs">
-            © 2026 E-Cell, JNCT PU Professional University. All rights reserved.
+            © 2026 E-Cell, jnct professional university. All rights reserved.
           </p>
         </div>
       </footer>

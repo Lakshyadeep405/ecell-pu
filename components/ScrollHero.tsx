@@ -315,7 +315,7 @@ export default function ScrollHero() {
             </p>
             <h1
               className="font-[family-name:var(--font-outfit)] font-black leading-[1.05] tracking-tight text-white mb-5 uppercase"
-              style={{ fontSize: "clamp(1.7rem, 6vw, 5.5rem)", textShadow: "3px 3px 0px #D4AF37" }}
+              style={{ fontSize: "clamp(1.7rem, 6vw, 5.5rem)" }}
             >
               Ignite Your<br />
               <span className="gradient-text">Entrepreneurial</span><br />
@@ -325,8 +325,8 @@ export default function ScrollHero() {
               Scroll to explore
             </p>
             {/* Scroll indicator */}
-            <div className="w-6 h-10 border-2 border-[#D4AF37] rounded-none mx-auto relative overflow-hidden">
-              <div className="w-1 h-2 bg-[#D4AF37] rounded-none absolute top-1 left-1/2 -translate-x-1/2 animate-bounce" />
+            <div className="w-6 h-10 border-2 border-[#D4AF37] rounded-full mx-auto relative overflow-hidden">
+              <div className="w-1 h-2 bg-[#D4AF37] rounded-full absolute top-1 left-1/2 -translate-x-1/2 animate-bounce" />
             </div>
           </div>
   
@@ -336,12 +336,12 @@ export default function ScrollHero() {
             style={{ opacity: midOpacity }}
           >
             <div className="flex flex-col items-center md:items-start gap-3 text-center md:text-left">
-              <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3 py-1 w-fit bg-background shadow-[3px_3px_0px_#D4AF37]">
+              <span className="clay-badge px-3 py-1 bg-background/50 text-foreground w-fit">
                 Innovation
               </span>
               <h2
                 className="font-[family-name:var(--font-outfit)] font-black leading-[1.1] tracking-tight text-white uppercase"
-                style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", textShadow: "2px 2px 0px #D4AF37" }}
+                style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)" }}
               >
                 Where Ideas<br />
                 <span className="gradient-text-green">Come Alive</span>
@@ -358,19 +358,19 @@ export default function ScrollHero() {
               className="flex flex-col items-center md:items-end gap-4 text-center md:text-right"
               style={{ pointerEvents: !isPastHero && endOpacity > 0.5 ? "auto" : "none" }}
             >
-              <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3 py-1 bg-background shadow-[3px_3px_0px_#D4AF37]">
+              <span className="clay-badge px-3 py-1 bg-background/50 text-foreground">
                 E-Cell JNCT PU
               </span>
               <h2
                 className="font-[family-name:var(--font-outfit)] font-black leading-[1.1] tracking-tight text-white uppercase"
-                style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", textShadow: "2px 2px 0px #D4AF37" }}
+                style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)" }}
               >
                 Your Journey<br />
                 Starts <span className="gradient-text">Here</span>
               </h2>
               <a
                 href="#about"
-                className="inline-block px-8 py-3.5 text-sm font-black text-black uppercase tracking-wider transition-all duration-200 border-2 border-black bg-[#D4AF37] rounded-none shadow-[4px_4px_0px_#1F2937] hover:-translate-x-1 hover:-translate-y-1 hover:bg-[#D4AF37]/90 hover:shadow-[6px_6px_0px_#0A0A0A]"
+                className="clay-btn clay-btn-primary px-8 py-3.5 text-sm"
               >
                 Explore Entrepreneurship Cell
               </a>

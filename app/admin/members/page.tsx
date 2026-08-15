@@ -189,11 +189,11 @@ export default function MembersAdminPage() {
   return (
     <div className="space-y-10">
       {/* Page Header */}
-      <div className="pb-6 border-b-2 border-border flex items-center justify-between">
+      <div className="pb-6 border-b border-border flex items-center justify-between">
         <div className="space-y-2">
           <Link
             href="/admin"
-            className="inline-flex items-center gap-2 px-3 py-1.5 border-2 border-border bg-background text-[10px] font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#D4AF37] transition-all cursor-pointer mb-2"
+            className="clay-btn clay-btn-secondary inline-flex items-center gap-2 px-3 py-1.5 text-[10px] mb-2"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Dashboard
@@ -208,7 +208,7 @@ export default function MembersAdminPage() {
       </div>
 
       {error && (
-        <div className="p-4 border-2 border-red-500 bg-red-500/10 text-red-500 text-xs font-bold">
+        <div className="p-4 clay-card-red text-red-500 text-xs font-bold">
           {error}
         </div>
       )}
@@ -217,8 +217,8 @@ export default function MembersAdminPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Side: Members List (7 cols) */}
-        <div className="lg:col-span-7 bg-card border-2 border-border shadow-[4px_4px_0px_#0A0A0A] dark:shadow-[4px_4px_0px_#F9FAFB] overflow-hidden">
-          <div className="p-4 border-b-2 border-border bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="lg:col-span-7 overflow-hidden clay-card">
+          <div className="p-4 border-b border-border bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Current Squad ({filteredMembers.length})
             </span>
@@ -229,7 +229,7 @@ export default function MembersAdminPage() {
                 placeholder="Search squad..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-background border-2 border-border text-foreground font-semibold placeholder-muted-foreground/50 focus:outline-none focus:border-[#D4AF37] text-xs rounded-none"
+                className="w-full pl-9 pr-3 py-2 bg-background border text-foreground font-semibold placeholder-muted-foreground/50 focus:outline-none focus:border-[#D4AF37] text-xs clay-input"
               />
             </div>
           </div>
@@ -239,20 +239,20 @@ export default function MembersAdminPage() {
               Retrieving squad rosters...
             </div>
           ) : filteredMembers.length === 0 ? (
-            <div className="text-center py-20 m-4 border-dashed border-2 border-border bg-muted/10">
+            <div className="text-center py-20 m-4 border border-dashed border-border bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
               <FolderMinus className="w-8 h-8 text-[#D4AF37] mx-auto mb-3" />
               <p className="text-muted-foreground text-xs font-black uppercase tracking-wider">
                 No squad members found.
               </p>
             </div>
           ) : (
-            <div className="divide-y-2 divide-border max-h-[600px] overflow-y-auto">
+            <div className="divide-y divide-border max-h-[600px] overflow-y-auto">
               {filteredMembers.map((member) => (
                 <div key={member.id} className="p-4 flex items-center justify-between gap-4 hover:bg-muted/10">
                   <div className="flex items-center gap-4 min-w-0">
                     
                     {/* Member photo or placeholder */}
-                    <div className="w-12 h-16 border-2 border-border bg-muted flex-shrink-0 overflow-hidden relative shadow-[1px_1px_0px_#D4AF37]">
+                    <div className="w-12 h-16 border border-border bg-muted flex-shrink-0 overflow-hidden relative rounded-xl shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4),_inset_-1px_-1px_2px_rgba(0,0,0,0.15)]">
                       {member.photo_url ? (
                         <img src={member.photo_url} alt={member.name} className="w-full h-full object-cover" />
                       ) : (
@@ -271,26 +271,26 @@ export default function MembersAdminPage() {
                       </p>
                       
                       {/* Domain badge */}
-                      <span className="inline-block mt-2 text-[7px] font-bold tracking-wider text-muted-foreground uppercase border border-border bg-background px-1.5 py-0.5">
+                      <span className="clay-badge mt-2 text-[7px] bg-background/50 px-1.5 py-0.5">
                         {member.domain}
                       </span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-[10px] font-bold text-muted-foreground border border-border px-2 py-1 bg-background mr-2" title="Display Order">
+                    <span className="clay-badge text-[10px] bg-background/50 px-2 py-1 mr-2" title="Display Order">
                       Order: {member.display_order}
                     </span>
                     <button
                       onClick={() => handleEditInit(member)}
-                      className="p-2 border-2 border-border bg-background hover:bg-[#D4AF37]/10 text-foreground cursor-pointer"
+                      className="clay-btn clay-btn-secondary p-2"
                       title="Edit Member"
                     >
                       <Edit3 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleDeleteMember(member.id, member.name)}
-                      className="p-2 border-2 border-border bg-background hover:bg-red-500/10 text-red-500 cursor-pointer"
+                      className="clay-btn clay-btn-secondary p-2 text-red-500 hover:bg-red-500/10"
                       title="Remove Member"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -303,8 +303,8 @@ export default function MembersAdminPage() {
         </div>
 
         {/* Right Side: Form Editor (5 cols) */}
-        <div className="lg:col-span-5 bg-card border-2 border-border p-6 shadow-[3px_3px_0px_#D4AF37] space-y-6">
-          <h3 className="font-[family-name:var(--font-outfit)] text-base font-black uppercase tracking-wide border-b-2 border-border pb-3 flex items-center justify-between">
+        <div className="lg:col-span-5 p-6 clay-card space-y-6">
+          <h3 className="font-[family-name:var(--font-outfit)] text-base font-black uppercase tracking-wide border-b border-border pb-3 flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Users2 className="w-5 h-5 text-[#D4AF37]" />
               {editingId ? "Edit Squad Member" : "Add Squad Member"}
@@ -313,7 +313,7 @@ export default function MembersAdminPage() {
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-[9px] font-black uppercase border border-border bg-background px-2 py-0.5 hover:bg-muted text-muted-foreground cursor-pointer"
+                className="clay-btn clay-btn-secondary text-[9px] px-2 py-0.5"
               >
                 Cancel
               </button>
@@ -331,7 +331,7 @@ export default function MembersAdminPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Kabir Singh"
-                className="w-full px-3 py-2 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs rounded-none"
+                className="w-full px-3 py-2 bg-background border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs clay-input"
               />
             </div>
 
@@ -345,7 +345,7 @@ export default function MembersAdminPage() {
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 placeholder="e.g. TECHNICAL HEAD"
-                className="w-full px-3 py-2 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs rounded-none"
+                className="w-full px-3 py-2 bg-background border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs clay-input"
               />
             </div>
 
@@ -356,7 +356,7 @@ export default function MembersAdminPage() {
               <select
                 value={domain}
                 onChange={(e) => setDomain(e.target.value as any)}
-                className="w-full px-3 py-2 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs rounded-none cursor-pointer"
+                className="w-full px-3 py-2 bg-background border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs clay-input cursor-pointer"
               >
                 {DOMAINS.map(d => (
                   <option key={d.id} value={d.id}>{d.label}</option>
@@ -373,7 +373,7 @@ export default function MembersAdminPage() {
                 value={displayOrder}
                 onChange={(e) => setDisplayOrder(e.target.value)}
                 placeholder="e.g. 0 (lower values show first)"
-                className="w-full px-3 py-2 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs rounded-none"
+                className="w-full px-3 py-2 bg-background border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-xs clay-input"
               />
               <span className="text-[8px] text-muted-foreground block">
                 Assign lower number to showcase them higher up in listings.
@@ -387,7 +387,7 @@ export default function MembersAdminPage() {
               </label>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
-                <div className="flex flex-col justify-center p-3 border-2 border-dashed border-border bg-muted/20 text-center relative h-20">
+                <div className="flex flex-col justify-center p-3 border border-dashed border-border bg-muted/20 rounded-2xl text-center relative h-20 shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
                   <input
                     type="file"
                     accept="image/*"
@@ -410,14 +410,14 @@ export default function MembersAdminPage() {
                     value={photoUrl}
                     onChange={(e) => setPhotoUrl(e.target.value)}
                     placeholder="https://direct-link-to-photo.jpg"
-                    className="w-full px-3.5 py-2 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-[10px] rounded-none"
+                    className="w-full px-3.5 py-2 bg-background border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-[10px] clay-input"
                   />
                 </div>
               </div>
 
               {photoUrl && (
-                <div className="mt-3 border-2 border-border p-1.5 bg-muted/20 w-fit">
-                  <img src={photoUrl} alt="Photo Preview" className="w-16 h-20 object-cover border border-border" />
+                <div className="mt-3 border border-border p-1.5 bg-muted/20 w-fit rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
+                  <img src={photoUrl} alt="Photo Preview" className="w-16 h-20 object-cover border border-border rounded-xl" />
                 </div>
               )}
             </div>
@@ -425,7 +425,7 @@ export default function MembersAdminPage() {
             <button
               type="submit"
               disabled={formLoading || uploading}
-              className="w-full py-3.5 border-2 border-border bg-[#D4AF37] text-black font-black uppercase text-xs tracking-wider transition-all duration-200 shadow-[3px_3px_0px_#0A0A0A] dark:shadow-[3px_3px_0px_#F9FAFB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#0A0A0A] dark:hover:shadow-[5px_5px_0px_#F9FAFB] disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 mt-6"
+              className="clay-btn clay-btn-primary w-full py-3.5 text-xs disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 mt-6"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{editingId ? "Save Member Details" : "Add to Squad"}</span>

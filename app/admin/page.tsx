@@ -124,21 +124,21 @@ export default function AdminDashboard() {
     switch (status) {
       case "published":
         return (
-          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-green-500 bg-green-500/10 px-2.5 py-1 border border-green-500/20">
+          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-green-500 bg-green-500/10 px-2.5 py-1 border border-green-500/20 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]">
             <CheckCircle className="w-3 h-3" />
             Active
           </span>
         );
       case "closed":
         return (
-          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-red-500 bg-red-500/10 px-2.5 py-1 border border-red-500/20">
+          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-red-500 bg-red-500/10 px-2.5 py-1 border border-red-500/20 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]">
             <XCircle className="w-3 h-3" />
             Closed
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-yellow-500 bg-yellow-500/10 px-2.5 py-1 border border-yellow-500/20">
+          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-yellow-500 bg-yellow-500/10 px-2.5 py-1 border border-yellow-500/20 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]">
             <Clock className="w-3 h-3" />
             Draft
           </span>
@@ -149,9 +149,9 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-10">
       {/* Title section */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b-2 border-border">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-border">
         <div>
-          <span className="inline-block text-[0.55rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-2.5 py-1 mb-3 bg-background shadow-[2px_2px_0px_#D4AF37]">
+          <span className="clay-badge px-2.5 py-1 mb-3 bg-background/50 text-foreground">
             Overview
           </span>
           <h1 className="font-[family-name:var(--font-outfit)] text-3xl md:text-4xl font-black uppercase tracking-tight">
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
         </div>
         <Link
           href="/admin/events/new"
-          className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-border bg-[#D4AF37] text-black font-black uppercase text-xs tracking-wider transition-all duration-150 shadow-[3px_3px_0px_#0A0A0A] dark:shadow-[3px_3px_0px_#F9FAFB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#0A0A0A] dark:hover:shadow-[5px_5px_0px_#F9FAFB] cursor-pointer w-full sm:w-auto"
+          className="clay-btn clay-btn-primary flex items-center justify-center gap-2 px-6 py-3 text-xs w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Post New Event</span>
@@ -172,7 +172,7 @@ export default function AdminDashboard() {
 
       {/* Stats Counter */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div className="bg-card border-2 border-border p-6 shadow-[3px_3px_0px_#D4AF37] flex items-center justify-between">
+        <div className="p-6 clay-card flex items-center justify-between">
           <div>
             <p className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Total Events</p>
             <h3 className="font-[family-name:var(--font-outfit)] text-3xl font-black mt-1 text-foreground">
@@ -182,7 +182,7 @@ export default function AdminDashboard() {
           <CalendarDays className="w-8 h-8 text-[#D4AF37]" />
         </div>
 
-        <div className="bg-card border-2 border-border p-6 shadow-[3px_3px_0px_#D4AF37] flex items-center justify-between">
+        <div className="p-6 clay-card flex items-center justify-between">
           <div>
             <p className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Total Registrations</p>
             <h3 className="font-[family-name:var(--font-outfit)] text-3xl font-black mt-1 text-foreground">
@@ -192,7 +192,7 @@ export default function AdminDashboard() {
           <Users className="w-8 h-8 text-[#D4AF37]" />
         </div>
 
-        <div className="bg-card border-2 border-border p-6 shadow-[3px_3px_0px_#D4AF37] flex items-center justify-between">
+        <div className="p-6 clay-card flex items-center justify-between">
           <div>
             <p className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">Pending Join Requests</p>
             <h3 className="font-[family-name:var(--font-outfit)] text-3xl font-black mt-1 text-foreground">
@@ -205,14 +205,14 @@ export default function AdminDashboard() {
 
       {/* Error state */}
       {error && (
-        <div className="p-4 border-2 border-red-500 bg-red-500/10 text-red-500 text-xs font-bold">
+        <div className="p-4 clay-card-red text-red-500 text-xs font-bold">
           {error}
         </div>
       )}
 
       {/* Main events table */}
-      <div className="bg-card border-2 border-border shadow-[4px_4px_0px_#0A0A0A] dark:shadow-[4px_4px_0px_#F9FAFB] overflow-hidden">
-        <div className="p-4 border-b-2 border-border bg-muted/40 font-black uppercase text-[10px] tracking-widest text-muted-foreground">
+      <div className="overflow-hidden clay-card">
+        <div className="p-4 border-b border-border bg-muted/40 font-black uppercase text-[10px] tracking-widest text-muted-foreground">
           Event Lists
         </div>
 
@@ -221,13 +221,13 @@ export default function AdminDashboard() {
             Synchronizing data files...
           </div>
         ) : events.length === 0 ? (
-          <div className="text-center py-24 border-dashed border-2 border-border m-4 bg-muted/10">
+          <div className="text-center py-24 border border-dashed border-border m-4 bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
             <p className="text-muted-foreground text-xs font-black uppercase tracking-wider mb-6">
               No events found in the database.
             </p>
             <Link
               href="/admin/events/new"
-              className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-border bg-background text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37] transition-all cursor-pointer"
+              className="clay-btn clay-btn-secondary inline-flex items-center gap-2 px-5 py-2.5 text-xs"
             >
               <Plus className="w-4 h-4" />
               Create First Event
@@ -237,7 +237,7 @@ export default function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
               <thead>
-                <tr className="border-b-2 border-border bg-muted/10">
+                <tr className="border-b border-border bg-muted/10">
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground w-1/3">Event Detail</th>
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Date & Venue</th>
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Status</th>
@@ -245,7 +245,7 @@ export default function AdminDashboard() {
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y-2 divide-border">
+              <tbody className="divide-y divide-border">
                 {events.map((event) => (
                   <tr key={event.id} className="hover:bg-muted/10">
                     <td className="p-4 align-top">
@@ -276,7 +276,7 @@ export default function AdminDashboard() {
                         <select
                           value={event.status}
                           onChange={(e) => handleUpdateStatus(event.id, e.target.value as any)}
-                          className="text-[9px] font-bold border-2 border-border bg-background px-1.5 py-0.5 focus:outline-none focus:border-[#D4AF37] cursor-pointer"
+                          className="text-[9px] font-bold border bg-background px-1.5 py-0.5 focus:outline-none focus:border-[#D4AF37] cursor-pointer clay-input"
                         >
                           <option value="draft">Set to Draft</option>
                           <option value="published">Publish Event</option>
@@ -287,7 +287,7 @@ export default function AdminDashboard() {
                     <td className="p-4 align-top text-center">
                       <Link
                         href={`/admin/events/${event.id}/entries`}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-border bg-background text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#0A0A0A] dark:shadow-[2px_2px_0px_#F9FAFB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#0A0A0A] dark:hover:shadow-[3px_3px_0px_#F9FAFB] transition-all cursor-pointer"
+                        className="clay-btn clay-btn-secondary inline-flex items-center gap-1.5 px-3 py-1.5 text-xs"
                       >
                         <FileSpreadsheet className="w-3.5 h-3.5" />
                         <span>{event.registrations_count}</span>
@@ -298,14 +298,14 @@ export default function AdminDashboard() {
                         <Link
                           href={`/events/${event.id}/register`}
                           target="_blank"
-                          className="p-2 border-2 border-border bg-background hover:bg-muted text-foreground cursor-pointer"
+                          className="clay-btn clay-btn-secondary p-2"
                           title="View Registration Form"
                         >
                           <ExternalLink className="w-4 h-4" />
                         </Link>
                         <button
                           onClick={() => handleDeleteEvent(event.id, event.title)}
-                          className="p-2 border-2 border-border bg-background hover:bg-red-500/10 text-red-500 cursor-pointer"
+                          className="clay-btn clay-btn-secondary p-2 text-red-500 hover:bg-red-500/10"
                           title="Delete Event"
                         >
                           <Trash2 className="w-4 h-4" />

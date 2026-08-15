@@ -16,12 +16,12 @@ export const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
       <div
         ref={ref}
         className={cn(
-          "flex flex-col items-start gap-4 p-6 rounded-none border-2 border-border bg-card shadow-[4px_4px_0px_#00FF66] transition-all duration-300 ease-in-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#00FF66]",
+          "flex flex-col items-start gap-4 p-6 clay-card transition-all duration-300 ease-in-out",
           className
         )}
         aria-labelledby={titleId}
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-none border-2 border-border bg-muted text-primary">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-primary shadow-[inset_1px_1px_3px_rgba(255,255,255,0.4),_inset_-1px_-1px_3px_rgba(0,0,0,0.1)]">
           <Icon className="h-6 w-6" aria-hidden="true" />
         </div>
         <div className="flex flex-col">
@@ -58,7 +58,7 @@ export const FeatureGrid = React.forwardRef<HTMLElement, FeatureGridProps>(
       >
         <div className="container mx-auto px-4 md:px-6">
           <div className="mx-auto max-w-3xl text-center mb-16">
-            <h2 id={titleId} className="text-3xl font-black tracking-tight text-foreground sm:text-4xl md:text-5xl uppercase font-[family-name:var(--font-outfit)]" style={{ textShadow: "3px 3px 0px oklch(0.85 0.28 140)" }}>
+            <h2 id={titleId} className="text-3xl font-black tracking-tight text-foreground sm:text-4xl md:text-5xl uppercase font-[family-name:var(--font-outfit)]">
               {sectionTitle}
             </h2>
             <p className="mt-6 text-muted-foreground md:text-lg max-w-2xl mx-auto leading-relaxed">

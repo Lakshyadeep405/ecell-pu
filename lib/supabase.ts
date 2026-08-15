@@ -21,6 +21,8 @@ const createMockClient = () => {
     select: function() { return this; },
     eq: function() { return this; },
     neq: function() { return this; },
+    gte: function() { return this; },
+    lte: function() { return this; },
     order: function() { return this; },
     limit: function() { return this; },
     single: async function() { return { data: null, error: null }; },

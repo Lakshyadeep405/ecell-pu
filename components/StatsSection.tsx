@@ -1,19 +1,40 @@
 "use client";
 
+import { motion } from "framer-motion";
+
+const STATS = [
+  { value: "25+", label: "Members" },
+  { value: "3+", label: "Events" },
+  { value: "2+", label: "Startups" },
+  { value: "2+", label: "Mentors" },
+];
+
 export default function StatsSection() {
   return (
-    <section
-      className="py-16 px-4 border-t-2 border-[#0A0A0A] bg-background text-center"
-      role="region"
-      aria-label="University Affiliation"
-    >
-      <div className="max-w-6xl mx-auto flex flex-col items-center justify-center">
-        <h2
-          className="font-[family-name:var(--font-outfit)] font-black uppercase text-foreground tracking-tight leading-[1.15]"
-          style={{ fontSize: "clamp(1.6rem, 5vw, 3.8rem)", textShadow: "3px 3px 0px #D4AF37" }}
-        >
-          JNCT PU <span className="gradient-text">Professional</span> University
-        </h2>
+    <section className="relative overflow-hidden bg-black px-6 py-16 md:py-24">
+      <div className="relative mx-auto max-w-5xl">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="liquid-glass flex flex-col items-center justify-center rounded-3xl p-6 sm:p-8 text-center"
+            >
+              <span 
+                className="text-4xl font-black tracking-tight text-white md:text-5xl lg:text-6xl"
+                style={{ fontFamily: "var(--font-serif), serif" }}
+              >
+                {stat.value}
+              </span>
+              <span className="mt-3 text-[10px] sm:text-xs uppercase tracking-widest text-white/40 font-semibold font-[family-name:var(--font-outfit)]">
+                {stat.label}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

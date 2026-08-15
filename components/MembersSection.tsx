@@ -152,10 +152,10 @@ function PhotoCard({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-none cursor-pointer transition-all duration-300 relative border-2 border-border',
+        'overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 relative border border-border',
         className,
         isDimmed ? 'opacity-30' : 'opacity-100',
-        isActive ? '-translate-x-1 -translate-y-1 shadow-[4px_4px_0px_var(--primary)]' : 'shadow-[2px_2px_0px_#D4AF37]',
+        isActive ? 'clay-card-gold scale-102' : 'clay-card',
       )}
     >
       {hasImage ? (
@@ -224,7 +224,7 @@ function MemberRow({
       <div className="flex items-center gap-2.5">
         <span
           className={cn(
-            'w-4 h-3 rounded-none flex-shrink-0 transition-all duration-300',
+            'w-4 h-3 rounded-full flex-shrink-0 transition-all duration-300',
             isActive ? 'bg-[#D4AF37] w-5' : 'bg-foreground/20',
           )}
         />
@@ -253,7 +253,7 @@ function MemberRow({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded-none border border-transparent text-[#4B5563] hover:text-white hover:bg-[#1F2937] hover:border-[#1F2937] transition-all duration-150"
+                className="p-1 rounded-full border border-transparent text-[#4B5563] hover:text-white hover:bg-[#1F2937] hover:border-[#1F2937] hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition-all duration-150"
                 title="X / Twitter"
               >
                 <FaTwitter size={11} />
@@ -265,7 +265,7 @@ function MemberRow({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded-none border border-transparent text-[#4B5563] hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] transition-all duration-150"
+                className="p-1 rounded-full border border-transparent text-[#4B5563] hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:shadow-[0_2px_6px_rgba(212,175,55,0.2)] transition-all duration-150"
                 title="LinkedIn"
               >
                 <FaLinkedinIn size={11} />
@@ -277,7 +277,7 @@ function MemberRow({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded-none border border-transparent text-[#4B5563] hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] transition-all duration-150"
+                className="p-1 rounded-full border border-transparent text-[#4B5563] hover:text-black hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:shadow-[0_2px_6px_rgba(212,175,55,0.2)] transition-all duration-150"
                 title="Instagram"
               >
                 <FaInstagram size={11} />
@@ -289,7 +289,7 @@ function MemberRow({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="p-1 rounded-none border border-transparent text-[#4B5563] hover:text-white hover:bg-[#1F2937] hover:border-[#1F2937] transition-all duration-150"
+                className="p-1 rounded-full border border-transparent text-[#4B5563] hover:text-white hover:bg-[#1F2937] hover:border-[#1F2937] hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] transition-all duration-150"
                 title="Behance"
               >
                 <FaBehance size={11} />
@@ -345,17 +345,17 @@ export default function MembersSection() {
   return (
     <section
       id="team"
-      className="py-24 px-4 bg-background border-t-2 border-border"
+      className="py-24 px-4 bg-background border-t border-border"
       role="region"
       aria-label="Entrepreneurship Cell JNCT PU Team Members"
     >
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#D4AF37]">
+          <span className="clay-badge px-3.5 py-1.5 mb-6 bg-background/50 text-foreground">
             Our Core Team
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground uppercase font-[family-name:var(--font-outfit)]" style={{ textShadow: "3px 3px 0px #D4AF37" }}>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground uppercase font-[family-name:var(--font-outfit)]">
             Meet the <span className="gradient-text">Visionaries</span>
           </h2>
           <p className="mt-6 text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
@@ -370,7 +370,7 @@ export default function MembersSection() {
         <div className="mt-16 text-center">
           <a
             href="/team"
-            className="inline-block px-8 py-3.5 text-sm font-black text-foreground uppercase tracking-wider transition-all duration-200 border-2 border-border bg-background shadow-[4px_4px_0px_#D4AF37] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#D4AF37] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#D4AF37] cursor-pointer"
+            className="clay-btn clay-btn-secondary px-8 py-3.5 text-sm"
           >
             More Members
           </a>

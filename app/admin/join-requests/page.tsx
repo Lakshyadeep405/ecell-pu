@@ -114,21 +114,21 @@ export default function JoinRequestsAdminPage() {
     switch (status) {
       case "approved":
         return (
-          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-green-500 bg-green-500/10 px-2 py-0.5 border border-green-500/20">
+          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-green-500 bg-green-500/10 px-2 py-0.5 border border-green-500/20 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]">
             <Check className="w-2.5 h-2.5" />
             Approved
           </span>
         );
       case "rejected":
         return (
-          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-red-500 bg-red-500/10 px-2 py-0.5 border border-red-500/20">
+          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-red-500 bg-red-500/10 px-2 py-0.5 border border-red-500/20 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]">
             <X className="w-2.5 h-2.5" />
             Rejected
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-yellow-500 bg-yellow-500/10 px-2 py-0.5 border border-yellow-500/20">
+          <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-yellow-500 bg-yellow-500/10 px-2 py-0.5 border border-yellow-500/20 rounded-full shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]">
             <Clock className="w-2.5 h-2.5" />
             Pending
           </span>
@@ -146,11 +146,11 @@ export default function JoinRequestsAdminPage() {
   return (
     <div className="space-y-10">
       {/* Page Header */}
-      <div className="pb-6 border-b-2 border-border flex items-center justify-between">
+      <div className="pb-6 border-b border-border flex items-center justify-between">
         <div className="space-y-2">
           <Link
             href="/admin"
-            className="inline-flex items-center gap-2 px-3 py-1.5 border-2 border-border bg-background text-[10px] font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#D4AF37] transition-all cursor-pointer mb-2"
+            className="clay-btn clay-btn-secondary inline-flex items-center gap-2 px-3 py-1.5 text-[10px] mb-2"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Dashboard
@@ -165,14 +165,14 @@ export default function JoinRequestsAdminPage() {
       </div>
 
       {error && (
-        <div className="p-4 border-2 border-red-500 bg-red-500/10 text-red-500 text-xs font-bold">
+        <div className="p-4 clay-card-red text-red-500 text-xs font-bold">
           {error}
         </div>
       )}
 
       {/* Main requests queue table */}
-      <div className="bg-card border-2 border-border shadow-[4px_4px_0px_#0A0A0A] dark:shadow-[4px_4px_0px_#F9FAFB] overflow-hidden">
-        <div className="p-4 border-b-2 border-border bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="overflow-hidden clay-card">
+        <div className="p-4 border-b border-border bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             Applications ({filteredRequests.length})
           </span>
@@ -183,7 +183,7 @@ export default function JoinRequestsAdminPage() {
               placeholder="Search requests..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-background border-2 border-border text-foreground font-semibold placeholder-muted-foreground/50 focus:outline-none focus:border-[#D4AF37] text-xs rounded-none"
+              className="w-full pl-9 pr-3 py-2 bg-background border text-foreground font-semibold placeholder-muted-foreground/50 focus:outline-none focus:border-[#D4AF37] text-xs clay-input"
             />
           </div>
         </div>
@@ -193,14 +193,14 @@ export default function JoinRequestsAdminPage() {
             Retrieving queue items...
           </div>
         ) : requests.length === 0 ? (
-          <div className="text-center py-24 m-4 border-dashed border-2 border-border bg-muted/10">
+          <div className="text-center py-24 m-4 border border-dashed border-border bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
             <AlertCircle className="w-10 h-10 text-[#D4AF37] mx-auto mb-4" />
             <p className="text-muted-foreground text-xs font-black uppercase tracking-wider">
               No join requests received yet.
             </p>
           </div>
         ) : filteredRequests.length === 0 ? (
-          <div className="text-center py-24 m-4 border-dashed border-2 border-border bg-muted/10">
+          <div className="text-center py-24 m-4 border border-dashed border-border bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
             <p className="text-muted-foreground text-xs font-semibold">
               No applications match your filter query.
             </p>
@@ -209,7 +209,7 @@ export default function JoinRequestsAdminPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b-2 border-border bg-muted/10">
+                <tr className="border-b border-border bg-muted/10">
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Applicant Info</th>
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">College Details</th>
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground">Status</th>
@@ -217,7 +217,7 @@ export default function JoinRequestsAdminPage() {
                   <th className="p-4 text-[10px] font-black uppercase tracking-wider text-muted-foreground text-right">Approve / Reject Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y-2 divide-border">
+              <tbody className="divide-y divide-border">
                 {filteredRequests.map((req) => (
                   <tr key={req.id} className="hover:bg-muted/10">
                     <td className="p-4 align-middle">
@@ -251,14 +251,14 @@ export default function JoinRequestsAdminPage() {
                           <>
                             <button
                               onClick={() => handleUpdateStatus(req.id, "approved")}
-                              className="p-1.5 border-2 border-border bg-[#00FF66]/10 text-green-500 hover:bg-[#00FF66] hover:text-black cursor-pointer transition-all"
+                              className="clay-btn clay-btn-green p-1.5"
                               title="Approve Applicant"
                             >
                               <Check className="w-4 h-4" />
                             </button>
                             <button
                               onClick={() => handleUpdateStatus(req.id, "rejected")}
-                              className="p-1.5 border-2 border-border bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white cursor-pointer transition-all"
+                              className="clay-btn clay-btn-secondary text-red-500 hover:bg-red-500/10 p-1.5"
                               title="Reject Applicant"
                             >
                               <X className="w-4 h-4" />
@@ -268,7 +268,7 @@ export default function JoinRequestsAdminPage() {
                         {req.status === "approved" && (
                           <button
                             onClick={() => handleQuickAddMember(req)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 border-2 border-border bg-background hover:bg-[#D4AF37] hover:text-black text-[10px] font-black uppercase tracking-wider shadow-[2px_2px_0px_#000] cursor-pointer transition-all"
+                            className="clay-btn clay-btn-secondary inline-flex items-center gap-1 px-3 py-1.5 text-[10px]"
                             title="Add to Official Team"
                           >
                             <Users2 className="w-3.5 h-3.5" />

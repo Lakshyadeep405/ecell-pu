@@ -42,10 +42,10 @@ export default function AdminLoginPage() {
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col justify-between p-4 sm:p-6 select-none">
       {/* Top Navigation */}
-      <nav className="max-w-6xl w-full mx-auto flex items-center justify-between py-2">
+      <nav className="max-w-6xl w-full mx-auto flex items-center justify-between py-2 bg-background/80 backdrop-blur-md sticky top-0 z-40">
         <Link
           href="/"
-          className="flex items-center gap-2 px-4 py-2 border-2 border-border bg-card text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37] transition-all duration-150 cursor-pointer"
+          className="clay-btn clay-btn-secondary flex items-center gap-2 px-4 py-2 text-xs"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Home
@@ -57,16 +57,16 @@ export default function AdminLoginPage() {
 
       {/* Login Box */}
       <div className="flex-grow flex items-center justify-center py-10">
-        <div className="w-full max-w-md bg-card border-2 border-border p-8 shadow-[6px_6px_0px_#D4AF37] relative overflow-hidden bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
+        <div className="w-full max-w-md p-8 relative overflow-hidden clay-card bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
           
           {/* Brutalist badge */}
-          <div className="absolute top-0 right-0 bg-[#D4AF37] text-black text-[9px] font-black uppercase px-3.5 py-1.5 border-b-2 border-l-2 border-border flex items-center gap-1.5">
+          <div className="absolute top-0 right-0 bg-[#D4AF37] text-black text-[9px] font-black uppercase px-3.5 py-1.5 border-b border-l border-border rounded-bl-xl flex items-center gap-1.5 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4),_inset_-1px_-1px_2px_rgba(0,0,0,0.15)]">
             <Lock className="w-3 h-3" />
             Secure Gate
           </div>
 
           <div className="mb-8 mt-2">
-            <span className="inline-block text-[0.55rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-2.5 py-1 mb-4 bg-background shadow-[2px_2px_0px_#00FF66]">
+            <span className="clay-badge px-2.5 py-1 mb-4 bg-background/50 text-foreground">
               Admin Login
             </span>
             <h1 className="font-[family-name:var(--font-outfit)] text-3xl font-black uppercase text-foreground tracking-tight leading-none">
@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 border-2 border-[#EF4444] bg-[#EF4444]/10 text-[#EF4444] text-xs font-bold flex items-start gap-2.5">
+            <div className="mb-6 p-4 clay-card-red text-[#EF4444] text-xs font-bold flex items-start gap-2.5">
               <ShieldAlert className="w-4 h-4 mt-0.5 flex-shrink-0" />
               <span>{error}</span>
             </div>
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
                 placeholder="e.g. President"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] transition-all text-sm rounded-none"
+                className="w-full px-4 py-3 bg-background border text-foreground font-semibold placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] transition-all text-sm clay-input"
               />
             </div>
 
@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
                 placeholder="e.g. JNCTPU"
                 value={formData.college}
                 onChange={(e) => setFormData({ ...formData, college: e.target.value })}
-                className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] transition-all text-sm rounded-none"
+                className="w-full px-4 py-3 bg-background border text-foreground font-semibold placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] transition-all text-sm clay-input"
               />
             </div>
 
@@ -129,14 +129,14 @@ export default function AdminLoginPage() {
                 placeholder="••••"
                 value={formData.year}
                 onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] transition-all text-sm rounded-none"
+                className="w-full px-4 py-3 bg-background border text-foreground font-semibold placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#D4AF37] transition-all text-sm clay-input"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 border-2 border-border bg-[#D4AF37] text-black font-black uppercase text-xs tracking-wider transition-all duration-200 shadow-[4px_4px_0px_#0A0A0A] dark:shadow-[4px_4px_0px_#F9FAFB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#0A0A0A] dark:hover:shadow-[6px_6px_0px_#F9FAFB] disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 mt-4"
+              className="clay-btn clay-btn-primary w-full py-3.5 text-xs disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 mt-4"
             >
               {loading ? (
                 <>Verifying Command...</>
@@ -152,7 +152,7 @@ export default function AdminLoginPage() {
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-4 border-t-2 border-border max-w-6xl w-full mx-auto">
+      <footer className="text-center py-4 border-t border-border max-w-6xl w-full mx-auto">
         <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">
           Authorized Access Only • E-Cell JNCT PU Entrepreneurship Network
         </p>

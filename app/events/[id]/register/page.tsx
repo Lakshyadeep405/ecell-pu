@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
-import { ArrowLeft, AlertTriangle } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Instagram, Linkedin, Twitter } from "lucide-react";
 import RegisterForm from "./RegisterForm";
 
 interface EventItem {
@@ -102,38 +102,47 @@ export default async function RegisterPage({
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground flex flex-col justify-between p-4 sm:p-6 font-sans">
+    <main className="min-h-screen bg-black text-white flex flex-col justify-between p-4 sm:p-6 font-sans overflow-x-hidden">
       {/* Top navbar */}
-      <nav className="max-w-6xl w-full mx-auto flex items-center justify-between py-2 sticky top-0 z-40 bg-background/85 backdrop-blur-md">
+      <nav className="max-w-6xl w-full mx-auto flex items-center justify-between py-2 sticky top-0 z-40 bg-black/60 backdrop-blur-md">
         <Link
           href="/events"
-          className="flex items-center gap-2 px-4 py-2 border-2 border-border bg-card text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37] transition-all duration-150 cursor-pointer"
+          className="liquid-glass flex items-center gap-2 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider text-white/80 hover:text-white border border-white/10 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           Back to Events
         </Link>
-        <div className="font-[family-name:var(--font-outfit)] text-lg font-black tracking-tight">
-          <span className="text-[#D4AF37]">E-Cell</span> JNCT PU
+        <div className="flex items-center gap-1.5 hover:opacity-90 transition-opacity">
+          <span className="text-black bg-white text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 rounded leading-none font-[family-name:var(--font-outfit)]">
+            E-CELL
+          </span>
+          <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-[9px] sm:text-xs text-white">JNCT PU</span>
         </div>
       </nav>
 
       {/* Main Container */}
-      <div className="flex-grow flex items-center justify-center py-10 px-4">
+      <div className="flex-grow flex items-center justify-center py-10 px-4 relative">
+        {/* Ambient background light glow */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.015)_0%,_transparent_70%)]"
+          aria-hidden
+        />
+
         {errorMsg ? (
-          <div className="w-full max-w-md bg-card border-2 border-border p-8 shadow-[6px_6px_0px_#EF4444] text-center space-y-6">
-            <div className="w-12 h-12 bg-red-500/10 border-2 border-red-500 text-red-500 flex items-center justify-center mx-auto shadow-[2px_2px_0px_#000]">
+          <div className="w-full max-w-md p-8 text-center space-y-6 liquid-glass border border-red-500/20 bg-red-500/5 rounded-3xl relative z-10">
+            <div className="w-12 h-12 bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center mx-auto rounded-full">
               <AlertTriangle className="w-6 h-6" />
             </div>
-            <h2 className="font-[family-name:var(--font-outfit)] text-xl font-black uppercase text-foreground leading-tight">
+            <h2 className="font-serif text-xl text-white leading-tight">
               Access Restricted
             </h2>
-            <p className="text-muted-foreground text-xs font-semibold leading-relaxed">
+            <p className="text-white/40 text-xs font-semibold leading-relaxed">
               {errorMsg}
             </p>
             <div className="pt-2">
               <Link
                 href="/events"
-                className="inline-block px-6 py-2.5 border-2 border-border bg-background text-xs font-black uppercase tracking-wider shadow-[2px_2px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#D4AF37] transition-all"
+                className="liquid-glass border border-white/10 rounded-full text-white px-6 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-white/5 transition-colors inline-block"
               >
                 Go to Events listing
               </Link>
@@ -144,14 +153,43 @@ export default async function RegisterPage({
         )}
       </div>
 
-      {/* SEO Footer */}
-      <footer className="text-center py-4 border-t-2 border-border max-w-6xl w-full mx-auto space-y-1">
-        <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">
-          E-Cell JNCT PU • Professional University Event Incubation Gate
-        </p>
-        <p className="text-[9px] text-muted-foreground">
-          Bhopal, Central India Startup Incubation and Skill Development Program.
-        </p>
+      <footer className="border-t border-white/5 pt-8 pb-28 px-6 bg-[#030303] max-w-6xl w-full mx-auto mt-6">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex gap-3">
+            {[
+              { Icon: Instagram, label: "Instagram", url: "#" },
+              { Icon: Linkedin, label: "LinkedIn", url: "#" },
+              { Icon: Twitter, label: "Twitter", url: "#" },
+            ].map(({ Icon, label, url }) => (
+              <a
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="liquid-glass rounded-full p-2 text-white/50 transition-all hover:bg-white/5 hover:text-white border border-white/5"
+              >
+                <Icon className="h-3.5 w-3.5" />
+              </a>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4 pt-4 border-t border-white/[0.02] text-center sm:text-left">
+            <div className="flex flex-col gap-1.5 justify-center sm:justify-start">
+              <div className="flex items-center gap-1.5 justify-center sm:justify-start">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.jpg"
+                  alt="E-Cell JNCT PU Logo"
+                  className="w-5 h-5 rounded-full border border-white/10"
+                />
+                <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-[10px] font-bold text-white">JNCT PU</span>
+              </div>
+              <p className="text-[8px] text-white/20 font-medium">
+                E-Cell JNCT PU • Professional University Event Incubation Gate
+              </p>
+            </div>
+          </div>
+        </div>
       </footer>
     </main>
   );

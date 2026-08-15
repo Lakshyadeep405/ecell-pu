@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { 
-  ArrowLeft, 
   CheckCircle2, 
   Send, 
   Upload, 
@@ -16,7 +15,6 @@ import {
   ExternalLink,
   Sparkles
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface FieldItem {
   id: string;
@@ -54,6 +52,26 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
   const [fileUploading, setFileUploading] = useState<Record<string, boolean>>({});
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  // Prefill registration details from localStorage user session
+  React.useEffect(() => {
+    try {
+      const stored = localStorage.getItem("user_session");
+      if (stored) {
+        const user = JSON.parse(stored);
+        setFormData((prev) => ({
+          ...prev,
+          Name: user.name || prev.Name,
+          Email: user.email || prev.Email,
+          Phone: user.phone || prev.Phone,
+          College: user.college || prev.College,
+          Year: user.year || prev.Year,
+        }));
+      }
+    } catch (e) {
+      console.error("Failed to restore user session in RegisterForm", e);
+    }
+  }, []);
 
   const handleInputChange = (key: string, value: any) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -135,20 +153,25 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
 
   if (success) {
     return (
-      <div className="w-full max-w-lg bg-card border-2 border-border p-8 shadow-[6px_6px_0px_#D4AF37] text-center space-y-6 relative overflow-hidden bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
-        {/* Success badge */}
-        <div className="w-16 h-16 bg-[#00FF66]/10 border-2 border-[#00FF66] text-[#00FF66] flex items-center justify-center mx-auto shadow-[3px_3px_0px_#0A0A0A] dark:shadow-[3px_3px_0px_#F9FAFB]">
+      <div className="w-full max-w-lg p-8 text-center space-y-6 relative overflow-hidden liquid-glass border border-white/5 rounded-3xl">
+        {/* Ambient background light glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(37,211,102,0.03)_0%,_transparent_65%)] pointer-events-none" />
+
+        <div className="w-16 h-16 bg-[#25D366]/10 border border-[#25D366]/20 text-[#25D366] flex items-center justify-center mx-auto rounded-full">
           <CheckCircle2 className="w-8 h-8" />
         </div>
 
         <div className="space-y-2">
-          <span className="inline-block text-[0.55rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-2.5 py-1 mb-2 bg-background shadow-[2px_2px_0px_#00FF66]">
+          <span className="liquid-glass rounded-full px-3 py-1 text-[9px] uppercase tracking-widest text-white/40 font-bold font-[family-name:var(--font-outfit)]">
             Registration Complete
           </span>
-          <h2 className="font-[family-name:var(--font-outfit)] text-2xl font-black uppercase text-foreground">
-            You&apos;re <span className="gradient-text">Registered!</span>
+          <h2 
+            className="text-2xl font-serif text-white"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            You&apos;re <em>Registered!</em>
           </h2>
-          <p className="text-muted-foreground text-xs font-semibold leading-relaxed max-w-sm mx-auto">
+          <p className="text-white/40 text-xs font-semibold leading-relaxed max-w-sm mx-auto">
             Your details have been successfully logged. Please join the WhatsApp event group or contact coordinators to complete verification.
           </p>
         </div>
@@ -157,7 +180,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
         <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/events"
-            className="px-6 py-3 border-2 border-border bg-background text-foreground font-black uppercase text-xs tracking-wider transition-all duration-150 shadow-[3px_3px_0px_#D4AF37] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#D4AF37]"
+            className="liquid-glass border border-white/10 rounded-full text-white px-6 py-3 text-xs font-bold uppercase tracking-wider hover:bg-white/5 transition-colors"
           >
             All Events
           </Link>
@@ -165,7 +188,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
             href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 border-2 border-border bg-[#00FF66] text-black font-black uppercase text-xs tracking-wider transition-all duration-150 shadow-[3px_3px_0px_#000] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#000] flex items-center justify-center gap-2"
+            className="rounded-full bg-[#25D366] text-black px-6 py-3 text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
           >
             <ExternalLink className="w-4 h-4" />
             <span>Confirm on WhatsApp</span>
@@ -176,28 +199,39 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
   }
 
   return (
-    <div className="w-full max-w-lg bg-card border-2 border-border p-8 shadow-[6px_6px_0px_#D4AF37] relative overflow-hidden bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
+    <div className="w-full max-w-lg p-8 relative overflow-hidden liquid-glass border border-white/5 rounded-3xl">
       
       {/* Dynamic top badge */}
-      <div className="absolute top-0 right-0 bg-[#D4AF37] text-black text-[9px] font-black uppercase px-4 py-1.5 border-b-2 border-l-2 border-border flex items-center gap-1">
+      <div className="absolute top-0 right-0 bg-white text-black text-[9px] font-black uppercase px-4 py-1.5 border-b border-l border-white/10 rounded-bl-xl flex items-center gap-1">
         <Sparkles className="w-3 h-3" />
         Register
       </div>
 
-      <div className="mb-8 mt-2">
-        <span className="inline-block text-[0.55rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-2.5 py-1 mb-4 bg-background shadow-[2px_2px_0px_#00FF66]">
-          Event Registration
-        </span>
-        <h1 className="font-[family-name:var(--font-outfit)] text-2xl sm:text-3xl font-black uppercase text-foreground tracking-tight leading-none truncate">
-          {event.title}
-        </h1>
-        <p className="text-muted-foreground text-xs font-semibold mt-3 leading-relaxed">
-          {event.description || "Register today by submitting your details."}
-        </p>
+      <div className="mb-8 mt-2 flex flex-col items-start gap-3">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo.jpg"
+          alt="E-Cell Logo"
+          className="w-12 h-12 rounded-full border border-white/10"
+        />
+        <div>
+          <span className="liquid-glass rounded-full px-3 py-1 text-[9px] uppercase tracking-widest text-white/40 font-bold font-[family-name:var(--font-outfit)]">
+            Event Registration
+          </span>
+          <h1 
+            className="mt-4 text-2xl sm:text-3xl font-serif text-white leading-none truncate"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
+            {event.title}
+          </h1>
+          <p className="text-white/40 text-xs font-semibold mt-3 leading-relaxed">
+            {event.description || "Register today by submitting your details."}
+          </p>
+        </div>
       </div>
 
       {error && (
-        <div className="mb-6 p-4 border-2 border-[#EF4444] bg-[#EF4444]/10 text-[#EF4444] text-xs font-bold">
+        <div className="mb-6 p-4 rounded-xl border border-red-500/20 bg-red-500/5 text-red-400 text-xs font-bold">
           {error}
         </div>
       )}
@@ -206,7 +240,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
         
         {/* ── Standard core fields ── */}
         <div className="space-y-1.5">
-          <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <label className="text-[9px] font-bold uppercase tracking-wider text-white/40 flex items-center gap-1.5">
             <User className="w-3.5 h-3.5 text-[#D4AF37]" />
             Full Name *
           </label>
@@ -217,12 +251,12 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
             placeholder="Enter your name"
             value={formData.Name}
             onChange={(e) => handleInputChange("Name", e.target.value)}
-            className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/35 focus:outline-none focus:border-[#D4AF37] text-sm rounded-none"
+            className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white font-medium placeholder:text-white/20 focus:outline-none focus:border-white/20 text-xs rounded-xl transition-colors"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <label className="text-[9px] font-bold uppercase tracking-wider text-white/40 flex items-center gap-1.5">
             <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
             Email Address *
           </label>
@@ -233,12 +267,12 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
             placeholder="e.g. you@example.com"
             value={formData.Email}
             onChange={(e) => handleInputChange("Email", e.target.value)}
-            className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/35 focus:outline-none focus:border-[#D4AF37] text-sm rounded-none"
+            className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white font-medium placeholder:text-white/20 focus:outline-none focus:border-white/20 text-xs rounded-xl transition-colors"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <label className="text-[9px] font-bold uppercase tracking-wider text-white/40 flex items-center gap-1.5">
             <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
             WhatsApp Phone Number *
           </label>
@@ -249,12 +283,12 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
             placeholder="e.g. +91 98765 43210"
             value={formData.Phone}
             onChange={(e) => handleInputChange("Phone", e.target.value)}
-            className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/35 focus:outline-none focus:border-[#D4AF37] text-sm rounded-none"
+            className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white font-medium placeholder:text-white/20 focus:outline-none focus:border-white/20 text-xs rounded-xl transition-colors"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <label className="text-[9px] font-bold uppercase tracking-wider text-white/40 flex items-center gap-1.5">
             <School className="w-3.5 h-3.5 text-[#D4AF37]" />
             College Name *
           </label>
@@ -265,12 +299,12 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
             placeholder="e.g. JNCTPU"
             value={formData.College}
             onChange={(e) => handleInputChange("College", e.target.value)}
-            className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/35 focus:outline-none focus:border-[#D4AF37] text-sm rounded-none"
+            className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white font-medium placeholder:text-white/20 focus:outline-none focus:border-white/20 text-xs rounded-xl transition-colors"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+          <label className="text-[9px] font-bold uppercase tracking-wider text-white/40 flex items-center gap-1.5">
             <GraduationCap className="w-3.5 h-3.5 text-[#D4AF37]" />
             Year of Study *
           </label>
@@ -278,7 +312,8 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
             disabled={loading}
             value={formData.Year}
             onChange={(e) => handleInputChange("Year", e.target.value)}
-            className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-sm rounded-none cursor-pointer"
+            className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white/80 font-medium focus:outline-none focus:border-white/20 text-xs rounded-xl cursor-pointer transition-colors"
+            style={{ colorScheme: "dark" }}
           >
             <option value="1st Year">1st Year (Freshman)</option>
             <option value="2nd Year">2nd Year (Sophomore)</option>
@@ -294,8 +329,8 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
           const isUploading = !!fileUploading[key];
 
           return (
-            <div key={field.id} className="space-y-1.5 border-t border-border/10 pt-3">
-              <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground block">
+            <div key={field.id} className="space-y-1.5 border-t border-white/5 pt-3">
+              <label className="text-[9px] font-bold uppercase tracking-wider text-white/40 block">
                 {field.field_label} {field.required && "*"}
               </label>
 
@@ -307,7 +342,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
                   value={formData[key] || ""}
                   onChange={(e) => handleInputChange(key, e.target.value)}
                   placeholder="Type your response..."
-                  className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/35 focus:outline-none focus:border-[#D4AF37] text-sm rounded-none resize-none"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white font-medium placeholder:text-white/20 focus:outline-none focus:border-white/20 text-xs rounded-xl resize-none transition-colors"
                 />
               ) : field.field_type === "select" ? (
                 <select
@@ -315,7 +350,8 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
                   disabled={loading}
                   value={formData[key] || ""}
                   onChange={(e) => handleInputChange(key, e.target.value)}
-                  className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-sm rounded-none cursor-pointer"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white/80 font-medium focus:outline-none focus:border-white/20 text-xs rounded-xl cursor-pointer transition-colors"
+                  style={{ colorScheme: "dark" }}
                 >
                   <option value="" disabled>Select an option</option>
                   {field.options.map((opt) => (
@@ -324,7 +360,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
                 </select>
               ) : field.field_type === "file" ? (
                 <div className="space-y-2">
-                  <div className="flex flex-col justify-center p-4 border-2 border-dashed border-border bg-muted/20 text-center relative">
+                  <div className="flex flex-col justify-center p-4 border border-dashed border-white/10 bg-white/[0.02] rounded-2xl text-center relative hover:bg-white/[0.04] transition-colors">
                     <input
                       type="file"
                       required={field.required && !formData[key]}
@@ -333,12 +369,12 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:pointer-events-none"
                     />
                     <Upload className="w-6 h-6 text-[#D4AF37] mx-auto mb-1" />
-                    <span className="text-[10px] font-black uppercase tracking-wider text-foreground">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white">
                       {isUploading ? "Uploading file..." : formData[key] ? "Change File" : "Upload File"}
                     </span>
                   </div>
                   {formData[key] && (
-                    <div className="flex items-center gap-2 text-xs font-bold text-green-500">
+                    <div className="flex items-center gap-2 text-xs font-bold text-green-400">
                       <CheckCircle2 className="w-4 h-4" />
                       <span>Upload completed successfully!</span>
                     </div>
@@ -352,7 +388,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
                   placeholder={field.field_type === "number" ? "e.g. 5" : "Enter details"}
                   value={formData[key] || ""}
                   onChange={(e) => handleInputChange(key, e.target.value)}
-                  className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold placeholder:text-muted-foreground/35 focus:outline-none focus:border-[#D4AF37] text-sm rounded-none"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/5 text-white font-medium placeholder:text-white/20 focus:outline-none focus:border-white/20 text-xs rounded-xl transition-colors"
                 />
               )}
             </div>
@@ -362,7 +398,7 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
         <button
           type="submit"
           disabled={loading || Object.values(fileUploading).some(Boolean)}
-          className="w-full py-4 border-2 border-border bg-[#D4AF37] text-black font-black uppercase text-xs tracking-wider transition-all duration-200 shadow-[4px_4px_0px_#0A0A0A] dark:shadow-[4px_4px_0px_#F9FAFB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#0A0A0A] dark:hover:shadow-[6px_6px_0px_#F9FAFB] disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 mt-4"
+          className="rounded-full bg-white text-black w-full py-3.5 text-xs font-bold uppercase tracking-widest disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 mt-4 hover:opacity-90 transition-opacity"
         >
           <Send className="w-4 h-4" />
           {loading ? "Registering..." : "Confirm Event Registration"}

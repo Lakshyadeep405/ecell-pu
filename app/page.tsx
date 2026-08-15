@@ -2,49 +2,60 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Home, User, Users, CalendarDays, Mail, Rocket, Handshake, Lightbulb, Trophy, LogIn } from "lucide-react";
+import { 
+  Home, User, Users, CalendarDays, Mail, LogIn, ArrowRight, Sparkles, MapPin, 
+  Rocket, Handshake, Lightbulb, Trophy, Instagram, Linkedin, Twitter
+} from "lucide-react";
+import { motion } from "framer-motion";
 import { NavBar } from "@/components/ui/tubelight-navbar";
-import ScrollHero from "@/components/ScrollHero";
+import HeroSection from "@/components/ui/HeroSection";
 import StatsSection from "@/components/StatsSection";
-import { cn } from "@/lib/utils";
-import { FeatureGrid } from "@/components/ui/modern-feature-grid";
 import { supabase } from "@/lib/supabase";
 
-const DEFAULT_HIGHLIGHTS = [
-  { id: "default-1", day: "24", month: "JUN", tag: "Flagship", title: "StartUp Summit 2026", desc: "The biggest entrepreneurship summit at JNCT PU — pitches, panels, and prizes.", featured: true },
-  { id: "default-2", day: "05", month: "JUL", tag: "Workshop", title: "Pitch Perfect", desc: "Master the art of pitching your idea to investors in 60 seconds.", featured: false },
-  { id: "default-3", day: "18", month: "JUL", tag: "Hackathon", title: "InnoHack 2026", desc: "48-hour hackathon to solve real-world problems with tech and creativity.", featured: false },
-];
+
 
 const navItems = [
-  { name: "Home", url: "#home", icon: Home },
-  { name: "About", url: "#about", icon: User },
-  { name: "Team", url: "#team", icon: Users },
-  { name: "Events", url: "#events", icon: CalendarDays },
-  { name: "Contact", url: "#contact", icon: Mail },
-  { name: "Portal", url: "/admin/login", icon: LogIn },
+  { name: "Home", url: "/", icon: Home },
+  { name: "About", url: "/about", icon: User },
+  { name: "Team", url: "/team", icon: Users },
+  { name: "Events", url: "/events", icon: CalendarDays },
+  { name: "Contact", url: "/contact", icon: Mail },
+  { name: "Portal", url: "/login", icon: LogIn },
 ];
 
-const aboutFeatures = [
+// E-Cell 4 core pillars mapped to ASME video assets
+const PILLARS = [
   {
-    Icon: Rocket,
-    title: "Launch",
+    tag: "Launch",
+    title: "Venture Incubation",
     description: "We help students transform raw ideas into viable startups with mentorship, resources, and a supportive community.",
+    video: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4",
+    Icon: Rocket,
+    anchor: "venture-incubation",
   },
   {
-    Icon: Handshake,
-    title: "Connect",
+    tag: "Connect",
+    title: "Networking & Capital",
     description: "Build meaningful relationships with industry leaders, investors, and fellow entrepreneurs across disciplines.",
+    video: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
+    Icon: Handshake,
+    anchor: "networking-capital",
   },
   {
-    Icon: Lightbulb,
-    title: "Innovate",
+    tag: "Innovate",
+    title: "Ideation & Building",
     description: "Participate in hackathons, ideathons, and workshops designed to sharpen your entrepreneurial thinking.",
+    video: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    Icon: Lightbulb,
+    anchor: "ideation-building",
   },
   {
-    Icon: Trophy,
-    title: "Grow",
+    tag: "Grow",
+    title: "Scaling Ventures",
     description: "Access funding opportunities, pitch competitions, and incubation support to scale your venture.",
+    video: "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&w=800&q=80",
+    Icon: Trophy,
+    anchor: "scaling-ventures",
   },
 ];
 
@@ -54,227 +65,272 @@ export default function Page() {
   useEffect(() => {
     async function loadHighlights() {
       try {
+        const todayStr = new Date().toISOString().split("T")[0];
         const { data, error } = await supabase
           .from("events")
           .select("*")
           .eq("status", "published")
+          .gte("date", todayStr)
           .order("date", { ascending: true })
           .limit(3);
 
         if (error) throw error;
 
         if (data && data.length > 0) {
-          const mapped = data.map((ev: any, idx: number) => {
+          const mapped = data.map((ev: any) => {
             const evDate = new Date(ev.date);
             const day = evDate.toLocaleDateString("en-IN", { day: "2-digit" });
             const month = evDate.toLocaleDateString("en-IN", { month: "short" }).toUpperCase();
             return {
               id: ev.id,
-              day,
-              month,
-              tag: "INCUBATOR",
+              dateStr: `${day} ${month}`,
+              tag: "UPCOMING",
               title: ev.title,
               desc: ev.description || "No description provided.",
-              featured: idx === 0,
+              venue: ev.venue || "Campus Incubator",
             };
           });
           setHighlights(mapped);
         } else {
-          setHighlights(DEFAULT_HIGHLIGHTS);
+          setHighlights([]);
         }
       } catch (err) {
         console.error("Error loading highlights:", err);
-        setHighlights(DEFAULT_HIGHLIGHTS);
+        setHighlights([]);
       }
     }
     loadHighlights();
   }, []);
+
   return (
-    <main className="flex flex-col min-h-screen">
-      {/* ── TUBELIGHT NAVBAR ── */}
+    <main className="flex flex-col min-h-screen bg-black text-white font-sans overflow-hidden">
+      {/* ── NAVBAR ── */}
       <NavBar items={navItems} />
 
-      {/* ── SCROLL HERO (canvas animation) ── */}
-      <ScrollHero />
+      {/* ── CINEMATIC HERO ── */}
+      <HeroSection />
 
-      {/* ── ABOUT ── */}
-      <section
-        id="about"
-        className="py-20 px-4 border-t-2 border-border bg-card text-foreground"
-        role="region"
-        aria-label="About E-Cell JNCT PU — Entrepreneurship Cell"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#00FF66]">
-            About Us
-          </span>
-        </div>
-        <FeatureGrid
-          sectionTitle={
-            <>
-              Fostering the <span className="gradient-text">Next Generation</span> of Innovators
-            </>
-          }
-          sectionDescription="E-Cell JNCT PU empowers JNCT Professional University students with startup resources, mentorship programs, and entrepreneurship support to build successful businesses."
-          features={aboutFeatures}
-          className="py-8"
-        />
-      </section>
-
-      {/* ── MEMBERS / TEAM BANNER ── */}
-      <section
-        id="team"
-        className="py-24 px-4 bg-background border-t-2 border-border"
-        role="region"
-        aria-label="Entrepreneurship Cell JNCT PU Team Members"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="relative overflow-hidden bg-card border-2 border-border rounded-none p-12 md:p-20 text-center shadow-[6px_6px_0px_#D4AF37] bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
-            <span className="relative inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#D4AF37]">
-              Our Squad
-            </span>
-            <h2
-              className="relative font-[family-name:var(--font-outfit)] font-black uppercase text-foreground mb-6 tracking-tight"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", textShadow: "3px 3px 0px #00FF66" }}
-            >
-              Meet the <span className="gradient-text">Visionaries</span>
-            </h2>
-            <p className="relative max-w-xl mx-auto text-base text-muted-foreground leading-relaxed mb-10">
-              The dedicated team of student leaders, builders, and entrepreneurs working to foster startup culture and drive innovation at JNCT PU.
-            </p>
-            <div className="relative">
-              <a
-                href="/team"
-                className="inline-block px-10 py-4 text-sm font-black text-foreground uppercase tracking-wider transition-all duration-200 border-2 border-border bg-background shadow-[5px_5px_0px_#D4AF37] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[7px_7px_0px_#D4AF37] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#D4AF37] cursor-pointer"
-              >
-                Meet the E-Cell Team
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── EVENTS ── */}
-      <section id="events" className="py-24 px-4 bg-background border-t-2 border-border">
-        <div className="max-w-6xl mx-auto">
-          <span className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#00FF66]">
-            Events
-          </span>
-          <h2
-            className="font-[family-name:var(--font-outfit)] font-black uppercase text-foreground mb-16 tracking-tight"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", textShadow: "3px 3px 0px #D4AF37" }}
-          >
-            Upcoming <span className="gradient-text">Highlights</span>
-          </h2>
-
-          <div className="flex flex-col gap-6">
-            {highlights.map((ev) => (
-              <Link
-                key={ev.id}
-                href={ev.id.startsWith("default-") ? "/events" : `/events/${ev.id}/register`}
-                className={cn(
-                  "flex items-center gap-6 rounded-none p-6 transition-all duration-300 border-2 border-border cursor-pointer group",
-                  ev.featured
-                    ? "bg-card shadow-[4px_4px_0px_#00FF66] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#00FF66]"
-                    : "bg-card shadow-[3px_3px_0px_#FFDE00] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_#FFDE00]"
-                )}
-              >
-                <div
-                  className={cn(
-                    "flex flex-col items-center justify-center h-16 w-16 min-w-[64px] rounded-none border-2 border-border p-2 transition-colors",
-                    ev.featured 
-                      ? "bg-[#D4AF37] text-black font-black group-hover:bg-[#AA7C11]" 
-                      : "bg-[#FFDE00] text-black font-black group-hover:bg-[#D4AF37]"
-                  )}
-                >
-                  <span className="font-[family-name:var(--font-outfit)] text-2xl font-black leading-none">
-                    {ev.day}
-                  </span>
-                  <span className="text-[0.6rem] font-black tracking-wider mt-0.5">{ev.month}</span>
-                </div>
-                <div>
-                  <span className={cn(
-                    "text-[0.65rem] font-black uppercase tracking-widest",
-                    ev.featured ? "text-[#D4AF37]" : "text-[#FFDE00]"
-                  )}>
-                    {ev.tag}
-                  </span>
-                  <h3 className="font-[family-name:var(--font-outfit)] text-xl font-black uppercase text-foreground mt-1 mb-2 group-hover:text-[#D4AF37] transition-colors">
-                    {ev.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{ev.desc}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── STATS ── */}
+      {/* ── STATS SECTION ── */}
       <StatsSection />
 
-      {/* ── CONTACT ── */}
-      <section
-        id="contact"
-        className="py-24 px-4 bg-muted border-t-2 border-border"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="relative overflow-hidden bg-card border-2 border-border rounded-none p-16 text-center shadow-[6px_6px_0px_#FFDE00] bg-[linear-gradient(to_right,var(--border-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-pattern)_1px,transparent_1px)] bg-[size:16px_16px]">
-            <span className="relative inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-foreground border-2 border-foreground rounded-none px-3.5 py-1.5 mb-6 bg-background shadow-[3px_3px_0px_#00FF66]">
-              Get Involved
+      {/* ── E-CELL CORE PILLARS SECTION ── */}
+      <section className="relative overflow-hidden bg-black px-6 py-20 md:py-32">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.015)_0%,_transparent_60%)]"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <p className="text-xs uppercase tracking-[0.25em] text-white/40 mb-3 font-semibold font-[family-name:var(--font-outfit)]">
+                Our Pillars
+              </p>
+              <h2 
+                className="text-4xl tracking-tight text-white md:text-5xl font-serif"
+                style={{ fontFamily: "var(--font-serif), serif" }}
+              >
+                How We Empower <em>Innovators</em>
+              </h2>
+            </div>
+            <p className="text-sm text-white/40 max-w-md">
+              E-Cell JNCT Professional University operates as a startup incubator and founder community, providing critical resources at every milestone.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {PILLARS.map((pillar, i) => {
+              const PillarIcon = pillar.Icon;
+              return (
+                <motion.article
+                  key={pillar.tag}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: i * 0.15 }}
+                  className="liquid-glass group overflow-hidden rounded-3xl"
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    {pillar.video.endsWith(".mp4") ? (
+                      <video
+                        src={pillar.video}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        muted
+                        autoPlay
+                        loop
+                        playsInline
+                        preload="auto"
+                      />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={pillar.video}
+                        alt={pillar.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  </div>
+                  <div className="p-6 sm:p-8">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-bold font-[family-name:var(--font-outfit)] flex items-center gap-1.5">
+                        <PillarIcon className="w-3.5 h-3.5" />
+                        {pillar.tag}
+                      </span>
+                      <Link
+                        href={`/about#${pillar.anchor}`}
+                        className="liquid-glass rounded-full p-2 text-white/60 hover:text-white transition-colors duration-300"
+                        aria-label={`Read more about ${pillar.title}`}
+                      >
+                        <ArrowRight className="h-4 w-4 -rotate-45 group-hover:rotate-0 transition-transform duration-350" />
+                      </Link>
+                    </div>
+                    <h3 className="mb-3 text-lg sm:text-xl font-bold tracking-tight text-white uppercase font-[family-name:var(--font-outfit)]">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm leading-relaxed text-white/50">{pillar.description}</p>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EVENTS HIGHLIGHTS SECTION ── */}
+      {highlights.length > 0 && (
+        <section className="relative overflow-hidden bg-black px-6 py-16 md:py-24 border-t border-white/5">
+          <div className="relative mx-auto max-w-5xl">
+            <div className="mb-12 text-center">
+              <span className="liquid-glass rounded-full px-3 py-1 text-[9px] uppercase tracking-widest text-white/40 font-bold font-[family-name:var(--font-outfit)]">
+                Dynamic Highlights
+              </span>
+              <h2 
+                className="mt-4 text-3xl md:text-4xl font-serif text-white"
+                style={{ fontFamily: "var(--font-serif), serif" }}
+              >
+                Upcoming <em>Programs</em>
+              </h2>
+            </div>
+
+            <div className="space-y-4">
+              {highlights.map((ev, idx) => (
+                <motion.div
+                  key={ev.id}
+                  initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="liquid-glass flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-2xl gap-4 hover:bg-white/[0.02] transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex flex-col items-center justify-center liquid-glass rounded-xl p-3 min-w-[70px] text-center border-white/10">
+                      <span className="font-[family-name:var(--font-outfit)] font-black text-sm uppercase text-[#D4AF37]">
+                        {ev.dateStr.split(" ")[0]}
+                      </span>
+                      <span className="text-[9px] font-bold text-white/40 tracking-wider">
+                        {ev.dateStr.split(" ")[1] || ""}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-[8px] uppercase tracking-widest text-[#D4AF37] font-bold px-2 py-0.5 rounded border border-[#D4AF37]/20 bg-[#D4AF37]/5 font-[family-name:var(--font-outfit)]">
+                        {ev.tag}
+                      </span>
+                      <h3 className="mt-2 text-base font-bold text-white uppercase tracking-tight font-[family-name:var(--font-outfit)]">
+                        {ev.title}
+                      </h3>
+                      <p className="text-xs text-white/40 mt-1 max-w-xl">{ev.desc}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between w-full md:w-auto gap-4 pt-3 md:pt-0 border-t border-white/5 md:border-none">
+                    <div className="flex items-center gap-1.5 text-xs text-white/40">
+                      <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
+                      <span className="font-semibold">{ev.venue}</span>
+                    </div>
+                    <Link
+                      href={ev.id.startsWith("default") ? "/events" : `/events/${ev.id}/register`}
+                      className="liquid-glass rounded-full px-5 py-2 text-xs font-semibold hover:bg-white/5 transition-colors flex items-center gap-1.5 border border-white/10"
+                    >
+                      Details <ArrowRight className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── CONTACT CTA SECTION ── */}
+      <section className="relative overflow-hidden bg-black px-6 py-20 md:py-32 border-t border-white/5">
+        <div className="relative mx-auto max-w-4xl text-center">
+          <div className="liquid-glass rounded-3xl p-8 sm:p-16 border-white/10 relative overflow-hidden">
+            {/* Ambient lighting effect */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.035)_0%,_transparent_65%)] pointer-events-none" />
+            
+            <span className="relative z-10 liquid-glass rounded-full px-3.5 py-1.5 text-[9px] uppercase tracking-widest text-white/50 font-bold font-[family-name:var(--font-outfit)]">
+              Get Connected
             </span>
             <h2
-              className="relative font-[family-name:var(--font-outfit)] font-black uppercase text-foreground mb-6 tracking-tight"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", textShadow: "3px 3px 0px #D4AF37" }}
+              className="relative z-10 mt-6 text-4xl sm:text-5xl font-serif text-white leading-tight"
+              style={{ fontFamily: "var(--font-serif), serif" }}
             >
-              Ready to <span className="gradient-text">Start?</span>
+              Ready to Redefine Your <em>Future?</em>
             </h2>
-            <p className="relative text-muted-foreground text-base max-w-md mx-auto mb-10 leading-relaxed font-medium">
-              Join E-Cell JNCT PU and be part of a movement that&apos;s redefining entrepreneurship on campus.
+            <p className="relative z-10 mt-4 text-xs sm:text-sm text-white/40 max-w-md mx-auto leading-relaxed font-medium">
+              Join E-Cell JNCT Professional University and connect with a massive network of student builders, mentors, and early-stage capital.
             </p>
-            <div className="relative flex gap-6 justify-center flex-wrap">
+            <div className="relative z-10 mt-10 flex flex-wrap gap-4 justify-center">
+              <Link
+                href="/join"
+                className="rounded-full bg-white px-8 py-3.5 text-xs font-bold text-black hover:opacity-90 transition-opacity"
+              >
+                Join E-Cell
+              </Link>
               <a
                 href="mailto:ecell@pu.ac.in"
-                id="email-btn"
-                className="inline-block px-8 py-3.5 rounded-none text-sm font-black text-primary uppercase tracking-wider transition-all duration-200 border-2 border-primary bg-primary/15 backdrop-blur-md shadow-[4px_4px_0px_#FFDE00] hover:-translate-x-1 hover:-translate-y-1 hover:bg-primary/25 hover:shadow-[8px_8px_0px_#FFDE00]"
+                className="liquid-glass rounded-full px-8 py-3.5 text-xs font-bold text-white hover:bg-white/5 transition-colors border border-white/15"
               >
                 Get in Touch
               </a>
-              <a
-                href="#about"
-                id="learn-more-btn"
-                className="inline-block px-8 py-3.5 rounded-none text-sm font-black text-foreground uppercase tracking-wider transition-all duration-200 border-2 border-border bg-foreground/5 backdrop-blur-md shadow-[4px_4px_0px_#00FF66] hover:-translate-x-1 hover:-translate-y-1 hover:bg-foreground/10 hover:shadow-[8px_8px_0px_#00FF66]"
-              >
-                Learn More
-              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="border-t-2 border-border py-8 px-4 bg-background">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-          <div className="font-[family-name:var(--font-outfit)] text-xl font-black">
-            <span className="text-primary">Entrepreneurship</span>
-            <span className="text-foreground"> Cell</span>
-            <span className="ml-1.5 text-xs font-bold text-black bg-[#FFDE00] border-2 border-border px-1.5 py-0.5 rounded-none align-middle shadow-[2px_2px_0px_#00FF66]">
-              JNCT PU
-            </span>
-          </div>
-          <p className="text-muted-foreground text-xs">
-            © 2026 E-Cell, JNCT PU Professional University. All rights reserved.
-          </p>
-          <div className="flex gap-5">
-            {["Instagram", "LinkedIn", "Twitter"].map((s) => (
+      <footer className="border-t border-white/5 pt-12 pb-28 px-6 bg-[#030303]">
+        <div className="max-w-6xl mx-auto flex flex-col items-center gap-6">
+          <div className="flex gap-4">
+            {[
+              { Icon: Instagram, label: "Instagram", url: "#" },
+              { Icon: Linkedin, label: "LinkedIn", url: "#" },
+              { Icon: Twitter, label: "Twitter", url: "#" },
+            ].map(({ Icon, label, url }) => (
               <a
-                key={s}
-                href="#"
-                className="text-muted-foreground text-sm hover:text-primary transition-colors duration-200"
+                key={label}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="liquid-glass rounded-full p-2.5 text-white/50 transition-all hover:bg-white/5 hover:text-white border border-white/5"
               >
-                {s}
+                <Icon className="h-4 w-4" />
               </a>
             ))}
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between w-full gap-4 pt-4 border-t border-white/[0.02]">
+            <div className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.jpg"
+                alt="E-Cell JNCT PU Logo"
+                className="w-5 h-5 rounded-full border border-white/10"
+              />
+              <span className="font-[family-name:var(--font-outfit)] uppercase tracking-widest text-xs font-bold text-white">JNCT PU</span>
+            </div>
+            <p className="text-white/30 text-xs font-medium font-[family-name:var(--font-outfit)] tracking-wider">
+              © 2026 E-Cell, JNCT Professional University. All rights reserved.
+            </p>
           </div>
         </div>
       </footer>
