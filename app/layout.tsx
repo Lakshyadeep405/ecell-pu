@@ -132,35 +132,48 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
-  name: "E-Cell JNCT PU",
-  alternateName: [
+  "name": "E-Cell JNCT PU",
+  "alternateName": [
     "Entrepreneurship Cell JNCT PU",
     "E-Cell JNCT Professional University",
     "JNCT Entrepreneurship Cell",
+    "Entrepreneurship Cell of JNCT Professional University"
   ],
-  url: siteUrl,
-  logo: `${siteUrl}/og-image.png`,
-  image: `${siteUrl}/og-image.png`,
-  description:
-    "E-Cell JNCT PU is the official Entrepreneurship Cell of JNCT Professional University, dedicated to fostering startup culture among students through mentorship, events, hackathons, and pitch competitions.",
-  parentOrganization: {
+  "url": siteUrl,
+  "logo": `${siteUrl}/icon.jpg`,
+  "image": `${siteUrl}/icon.jpg`,
+  "description": "E-Cell JNCT PU is the official Entrepreneurship Cell of JNCT Professional University, Bhopal. We foster campus entrepreneurship, support student-run startups, and host hackathons, pitch events, and mentorship sessions.",
+  "parentOrganization": {
     "@type": "CollegeOrUniversity",
-    name: "JNCT Professional University",
-    alternateName: ["JNCT PU", "JCT PU"],
-    sameAs: [],
+    "name": "JNCT Professional University",
+    "alternateName": ["JNCT PU", "JNCT Professional University Bhopal"],
+    "url": "https://jnct.edu.in",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bhopal",
+      "addressRegion": "Madhya Pradesh",
+      "addressCountry": "IN",
+      "postalCode": "462022"
+    }
   },
-  keywords:
-    "JNCT, JNCT PU, entrepreneurship, startup, E-Cell, hackathon, innovation, student entrepreneur",
-  address: {
+  "keywords": "JNCT, JNCT PU, E-Cell JNCT PU, Entrepreneurship Cell JNCT, startup Bhopal, hackathon Bhopal, student incubator Madhya Pradesh, business club Bhopal",
+  "address": {
     "@type": "PostalAddress",
-    addressCountry: "IN",
+    "streetAddress": "New Bypass Road, Karond",
+    "addressLocality": "Bhopal",
+    "addressRegion": "Madhya Pradesh",
+    "addressCountry": "IN",
+    "postalCode": "462022"
   },
-  contactPoint: {
+  "contactPoint": {
     "@type": "ContactPoint",
-    contactType: "General Enquiry",
-    email: "ecell@jnctpu.ac.in",
+    "contactType": "General Support & Incubation",
+    "email": "ecell@jnctpu.ac.in",
+    "url": `${siteUrl}/contact`
   },
-  sameAs: [],
+  "sameAs": [
+    "https://www.instagram.com/ecell.jnctpu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+  ]
 };
 
 export default function RootLayout({

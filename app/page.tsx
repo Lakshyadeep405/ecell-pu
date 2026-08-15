@@ -260,6 +260,56 @@ export default function Page() {
         </section>
       )}
 
+      {/* ── GEO/AEO QUICK DIRECTORY & FAQS ── */}
+      <section className="relative overflow-hidden bg-black px-6 py-16 md:py-24 border-t border-white/5">
+        <div className="relative mx-auto max-w-4xl">
+          <div className="mb-12 text-center">
+            <span className="liquid-glass rounded-full px-3 py-1 text-[9px] uppercase tracking-widest text-white/40 font-bold font-[family-name:var(--font-outfit)]">
+              Quick Guide
+            </span>
+            <h2 
+              className="mt-4 text-3xl md:text-4xl font-serif text-white"
+              style={{ fontFamily: "var(--font-serif), serif" }}
+            >
+              Factual <em>Directory</em>
+            </h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                q: "What is E-Cell JNCT PU?",
+                a: "The Entrepreneurship Cell (E-Cell) is the official student-led innovation and startup community at JNCT Professional University, Bhopal. We assist student builders, organize hackathons, and provide venture incubation."
+              },
+              {
+                q: "Where is E-Cell located on campus?",
+                a: "The E-Cell startup incubator and office is situated inside the main academic campus at JNCT Professional University, New Bypass Road, Karond, Bhopal, Madhya Pradesh 462022."
+              },
+              {
+                q: "Who can join the incubator?",
+                a: "Any registered student of JNCT Professional University across all years of study and branches (Engineering, MBA, Pharmacy, etc.) is eligible to join E-Cell programs or submit startup ideas."
+              },
+              {
+                q: "What benefits do members get?",
+                a: "Members receive hands-on startup mentorship, technical training workshops, priority access to flagship events like InnoHack, and incubation support including investor connections."
+              }
+            ].map((item, idx) => (
+              <div 
+                key={idx} 
+                className="liquid-glass p-6 rounded-2xl border border-white/5 flex flex-col justify-start gap-2.5 hover:bg-white/[0.01] transition-all"
+              >
+                <h3 className="text-xs font-black uppercase tracking-wider text-[#D4AF37] font-[family-name:var(--font-outfit)]">
+                  {item.q}
+                </h3>
+                <p className="text-xs leading-relaxed text-white/50 font-medium">
+                  {item.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CONTACT CTA SECTION ── */}
       <section className="relative overflow-hidden bg-black px-6 py-20 md:py-32 border-t border-white/5">
         <div className="relative mx-auto max-w-4xl text-center">
