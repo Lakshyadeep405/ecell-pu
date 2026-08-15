@@ -77,33 +77,49 @@ export default function RegisterForm({ event, fields }: RegisterFormProps) {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
+  const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+  const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, label: string) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Validate MIME type
+    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+      setError("Invalid file type. Only JPEG, PNG, WebP, and PDF are allowed.");
+      e.target.value = "";
+      return;
+    }
+
+    // Validate file size
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      setError("File is too large. Maximum allowed size is 5 MB.");
+      e.target.value = "";
+      return;
+    }
+
     setFileUploading((prev) => ({ ...prev, [label]: true }));
     setError(null);
     try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-      const filePath = `registrations/${fileName}`;
+      // Scope path to event + random name — prevents path collisions and overwrites
+      const safeExt = file.name.split(".").pop()?.replace(/[^a-zA-Z0-9]/g, "") || "bin";
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${safeExt}`;
+      const filePath = `registrations/${event.id}/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
         .from("ecell-assets")
-        .upload(filePath, file, { cacheControl: "3600", upsert: true });
+        .upload(filePath, file, { cacheControl: "3600", upsert: false });
 
       if (uploadError) {
-        throw new Error(
-          uploadError.message + 
-          ". Note: Ensure a public bucket named 'ecell-assets' exists in your Supabase."
-        );
+        console.error("Upload error:", uploadError);
+        throw new Error("Upload failed. Please try again.");
       }
 
       const { data } = supabase.storage.from("ecell-assets").getPublicUrl(filePath);
       handleInputChange(label, data.publicUrl);
     } catch (err: any) {
       console.error(err);
-      setError(`File upload failed: ${err.message}`);
+      setError(err.message || "File upload failed. Please try again.");
     } finally {
       setFileUploading((prev) => ({ ...prev, [label]: false }));
     }

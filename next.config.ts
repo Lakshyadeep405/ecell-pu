@@ -42,12 +42,17 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-eval needed for Next.js dev; tighten in prod if needed
+              // unsafe-eval only in dev (Next.js HMR requires it); removed in prod build
+              process.env.NODE_ENV === "development"
+                ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+                : "script-src 'self' 'unsafe-inline'",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https://images.unsplash.com https://d8j0ntlcm91z4.cloudfront.net https://*.supabase.co",
               "media-src 'self' https://d8j0ntlcm91z4.cloudfront.net",
               "connect-src 'self' https://*.supabase.co https://fonts.googleapis.com",
+              "object-src 'none'",
+              "base-uri 'self'",
               "frame-ancestors 'none'",
             ].join("; "),
           },

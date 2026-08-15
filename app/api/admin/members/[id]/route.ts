@@ -1,24 +1,22 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { requireAdmin } from "@/lib/auth";
 
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authError = await requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const { id } = await params;
-
-    const { error } = await supabaseAdmin
-      .from("members")
-      .delete()
-      .eq("id", id);
-
+    const { error } = await supabaseAdmin.from("members").delete().eq("id", id);
     if (error) throw error;
-
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("DELETE member error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to delete member." }, { status: 500 });
   }
 }
 
@@ -26,6 +24,9 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authError = await requireAdmin(request);
+  if (authError) return authError;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -46,10 +47,9 @@ export async function PUT(
       .single();
 
     if (error) throw error;
-
     return NextResponse.json({ success: true, member });
   } catch (error: any) {
     console.error("PUT member error:", error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: "Failed to update member." }, { status: 500 });
   }
 }

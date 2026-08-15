@@ -19,6 +19,11 @@ export async function GET(
       return NextResponse.json({ success: false, error: "Event not found." }, { status: 404 });
     }
 
+    // Don't expose draft event details or fields publicly
+    if (event.status === "draft") {
+      return NextResponse.json({ success: false, error: "Event not found." }, { status: 404 });
+    }
+
     const { data: fields, error: fieldsError } = await supabaseAdmin
       .from("event_fields")
       .select("*")
