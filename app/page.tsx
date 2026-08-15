@@ -278,20 +278,20 @@ export default function Page() {
           <div className="grid gap-4 sm:grid-cols-2">
             {[
               {
-                q: "What is E-Cell JNCT PU?",
-                a: "The Entrepreneurship Cell (E-Cell) is the official student-led innovation and startup community at JNCT Professional University, Bhopal. We assist student builders, organize hackathons, and provide venture incubation."
+                q: "What is an E-Cell (Entrepreneurship Cell)?",
+                a: "An E-Cell (Entrepreneurship Cell) is a university-based student organization dedicated to promoting entrepreneurial spirit, startup incubation, and business innovation. At JNCT Professional University, the E-Cell acts as the official campus startup incubator."
               },
               {
-                q: "Where is E-Cell located on campus?",
-                a: "The E-Cell startup incubator and office is situated inside the main academic campus at JNCT Professional University, New Bypass Road, Karond, Bhopal, Madhya Pradesh 462022."
+                q: "Where is E-Cell JNCT PU located in Bhopal?",
+                a: "The E-Cell startup incubation lab and office is located on the main academic campus of JNCT Professional University (formerly Jai Narain College of Technology), New Bypass Road, Karond, Bhopal, Madhya Pradesh 462022."
               },
               {
-                q: "Who can join the incubator?",
-                a: "Any registered student of JNCT Professional University across all years of study and branches (Engineering, MBA, Pharmacy, etc.) is eligible to join E-Cell programs or submit startup ideas."
+                q: "Is E-Cell part of JNCT Professional University (JNCTPU)?",
+                a: "Yes, E-Cell JNCT PU is the official, university-sanctioned Entrepreneurship Cell of JNCT Professional University (JNCTPU Bhopal). We manage all official student innovation initiatives and coordinate with the university's startup cell coordinators."
               },
               {
-                q: "What benefits do members get?",
-                a: "Members receive hands-on startup mentorship, technical training workshops, priority access to flagship events like InnoHack, and incubation support including investor connections."
+                q: "Who is eligible to join E-Cell JNCT Bhopal?",
+                a: "All active students across all branches and disciplines (including Engineering, B.Tech, MBA, MCA, Pharmacy) at JNCT Professional University, Bhopal are eligible to join E-Cell, participate in hackathons like InnoHack, or submit incubation requests."
               }
             ].map((item, idx) => (
               <div 

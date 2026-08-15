@@ -54,10 +54,10 @@ export default function HeroSection() {
               className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-white/10 shadow-2xl mb-4"
             />
             <p className="font-[family-name:var(--font-outfit)] text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
-              jnct professional university
+              jnct professional university (jnctpu bhopal)
             </p>
             <p className="font-[family-name:var(--font-outfit)] text-[10px] font-medium tracking-[0.4em] uppercase text-white/70">
-              Entrepreneurship Cell
+              Entrepreneurship Cell (E-Cell)
             </p>
           </div>
           <h1
@@ -100,7 +100,7 @@ export default function HeroSection() {
             )}
 
             <p className="px-4 text-xs leading-relaxed text-white/40 max-w-md mx-auto">
-              Stay updated with the latest events and incubation cohorts. Join the E-Cell community today.
+              Stay updated with the latest events and incubation cohorts at Jai Narain College of Technology. Join the official E-Cell community today.
             </p>
 
             <div className="pt-2">

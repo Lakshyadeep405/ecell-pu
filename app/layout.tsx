@@ -24,20 +24,28 @@ export const metadata: Metadata = {
 
   // ── Primary ──────────────────────────────────────────────
   title: {
-    default: "E-Cell JNCT PU | Entrepreneurship Cell — JNCT Professional University",
+    default: "E-Cell JNCT PU | Entrepreneurship Cell — JNCT Professional University Bhopal",
     template: "%s | E-Cell JNCT PU",
   },
   description:
-    "E-Cell JNCT PU is the official Entrepreneurship Cell of JNCT Professional University. We empower students with startup mentorship, hackathons, pitch competitions, and innovation events. Join India's next generation of entrepreneurs.",
+    "E-Cell JNCT PU is the official Entrepreneurship Cell of JNCT Professional University (formerly Jai Narain College of Technology, Bhopal). Learn what is an E-Cell, access campus startup incubation, and join flagship events.",
 
   keywords: [
     "JNCT",
     "JNCT PU",
     "JNCT Professional University",
-    "JCT PU",
+    "JNCT Bhopal",
+    "Jai Narain College of Technology",
+    "Jai Narain College of Technology Bhopal",
+    "JNCT Group of Colleges",
+    "JNCTPU",
+    "JNCTPU Bhopal",
     "E-Cell",
+    "what is ecell",
+    "what is an e-cell",
     "E-Cell JNCT",
     "E-Cell JNCT PU",
+    "ecell bhopal",
     "Entrepreneurship Cell",
     "Entrepreneurship Cell JNCT",
     "JNCT entrepreneurship",
