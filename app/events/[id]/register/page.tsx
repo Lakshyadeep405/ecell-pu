@@ -157,7 +157,7 @@ export default async function RegisterPage({
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-3">
             {[
-              { Icon: Instagram, label: "Instagram", url: "#" },
+              { Icon: Instagram, label: "Instagram", url: "https://www.instagram.com/ecell.jnctpu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" },
               { Icon: Linkedin, label: "LinkedIn", url: "#" },
               { Icon: Twitter, label: "Twitter", url: "#" },
             ].map(({ Icon, label, url }) => (
