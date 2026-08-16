@@ -1,6 +1,12 @@
 # Supabase RLS + Storage Policies for E-Cell JNCT PU
 # Run this entire block in: https://supabase.com/dashboard/project/quisgptwimxalflbaakh/sql
 
+## ─── 0. SCHEMA ALTERATIONS FOR MISSING COLUMNS ──────────────────────────────
+-- Run this if your events and members tables are missing these columns:
+ALTER TABLE events ADD COLUMN IF NOT EXISTS summary TEXT;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS photos TEXT[] DEFAULT ARRAY[]::TEXT[];
+ALTER TABLE members ADD COLUMN IF NOT EXISTS display_order INTEGER DEFAULT 0;
+
 ## ─── 1. ENABLE RLS ON ALL TABLES ───────────────────────────────────────────
 
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;

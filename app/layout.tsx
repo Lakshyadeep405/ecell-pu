@@ -24,27 +24,26 @@ export const metadata: Metadata = {
 
   // ── Primary ──────────────────────────────────────────────
   title: {
-    default: "E-Cell JNCT PU | Entrepreneurship Cell — JNCT Professional University Bhopal",
-    template: "%s | E-Cell JNCT PU",
+    default: "E-Cell JNCTPU | Entrepreneurship Cell — JNCT Professional University, Bhopal",
+    template: "%s | E-Cell JNCTPU",
   },
   description:
-    "E-Cell JNCT PU is the official Entrepreneurship Cell of JNCT Professional University (formerly Jai Narain College of Technology, Bhopal). Learn what is an E-Cell, access campus startup incubation, and join flagship events.",
+    "E-Cell JNCTPU is the official Entrepreneurship Cell of JNCT Professional University (formerly Jai Narain College of Technology, Bhopal). Learn what is an E-Cell, access campus startup incubation, and join flagship events.",
 
   keywords: [
     "JNCT",
-    "JNCT PU",
+    "JNCTPU",
     "JNCT Professional University",
     "JNCT Bhopal",
     "Jai Narain College of Technology",
     "Jai Narain College of Technology Bhopal",
     "JNCT Group of Colleges",
-    "JNCTPU",
     "JNCTPU Bhopal",
     "E-Cell",
     "what is ecell",
     "what is an e-cell",
     "E-Cell JNCT",
-    "E-Cell JNCT PU",
+    "E-Cell JNCTPU",
     "ecell bhopal",
     "Entrepreneurship Cell",
     "Entrepreneurship Cell JNCT",
@@ -56,7 +55,7 @@ export const metadata: Metadata = {
     "entrepreneurship club India",
     "pitch competition JNCT",
     "hackathon JNCT",
-    "startup events JNCT PU",
+    "startup events JNCTPU",
     "business club JNCT",
     "student innovation cell",
     "startup ecosystem university",
@@ -68,11 +67,10 @@ export const metadata: Metadata = {
     "student business",
     "entrepreneurial mindset",
     "university startup club",
-    "JNCT PU college",
   ],
 
-  authors: [{ name: "E-Cell JNCT PU", url: siteUrl }],
-  creator: "E-Cell JNCT PU",
+  authors: [{ name: "E-Cell JNCTPU", url: siteUrl }],
+  creator: "E-Cell JNCTPU",
   publisher: "JNCT Professional University",
   category: "Education, Entrepreneurship",
 
@@ -81,8 +79,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: siteUrl,
-    siteName: "E-Cell JNCT PU",
-    title: "E-Cell JNCT PU | Official Entrepreneurship Cell",
+    siteName: "E-Cell JNCTPU",
+    title: "E-Cell JNCTPU | Official Entrepreneurship Cell",
     description:
       "Empowering student entrepreneurs at JNCT Professional University through mentorship, hackathons, startup summits, and innovation programs. Be part of the movement.",
     images: [
@@ -90,7 +88,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "E-Cell JNCT PU — Entrepreneurship Cell of JNCT Professional University",
+        alt: "E-Cell JNCTPU — Entrepreneurship Cell of JNCT Professional University",
       },
     ],
   },
@@ -100,7 +98,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@ecell_jnctpu",
     creator: "@ecell_jnctpu",
-    title: "E-Cell JNCT PU | Entrepreneurship Cell",
+    title: "E-Cell JNCTPU | Entrepreneurship Cell",
     description:
       "Fueling the startup spirit at JNCT Professional University. Hackathons, pitch events, mentorship & more.",
     images: ["/og-image.png"],

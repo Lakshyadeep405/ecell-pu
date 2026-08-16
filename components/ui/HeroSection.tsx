@@ -53,17 +53,17 @@ export default function HeroSection() {
               alt="E-Cell JNCT PU Logo"
               className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-white/10 shadow-2xl mb-4"
             />
-            <p className="font-[family-name:var(--font-outfit)] text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
-              jnct professional university (jnctpu bhopal)
-            </p>
-            <p className="font-[family-name:var(--font-outfit)] text-[10px] font-medium tracking-[0.4em] uppercase text-white/70">
-              Entrepreneurship Cell (E-Cell)
-            </p>
           </div>
           <h1
             className="mb-8 text-5xl tracking-tight text-white md:text-7xl lg:text-8xl leading-none uppercase font-serif"
             style={{ fontFamily: "var(--font-serif), serif" }}
           >
+            <span className="block font-[family-name:var(--font-outfit)] text-xs font-black tracking-[0.25em] uppercase text-[#D4AF37] mb-2 font-sans">
+              E-Cell JNCTPU
+            </span>
+            <span className="block font-[family-name:var(--font-outfit)] text-[10px] font-bold tracking-[0.4em] uppercase text-white/70 mb-6 font-sans">
+              JNCT Professional University Entrepreneurship Cell
+            </span>
             Ignite Your<br />
             <em className="text-white/60 not-italic">Entrepreneurial</em><br />
             Spirit

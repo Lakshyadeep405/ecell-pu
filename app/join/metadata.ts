@@ -6,17 +6,18 @@ const siteUrl = rawSiteUrl.startsWith("http://") || rawSiteUrl.startsWith("https
   : `https://${rawSiteUrl}`;
 
 export const metadata: Metadata = {
-  title: "Join E-Cell JNCT PU | Membership Registration",
+  title: "Join E-Cell JNCTPU | Student Membership Registration",
   description:
-    "Apply to become a member of the Entrepreneurship Cell (E-Cell) of JNCT Professional University, Bhopal. Gain access to startup resources, tech incubation, and business mentorship.",
+    "Apply to become a member of E-Cell JNCTPU, the Entrepreneurship Cell of JNCT Professional University, Bhopal. Gain access to startup resources, tech incubation, and business mentorship.",
   keywords: [
-    "join E-Cell JNCT PU",
-    "JNCT entrepreneurship cell membership",
+    "join E-Cell JNCTPU",
+    "JNCTPU entrepreneurship cell membership",
     "student startup club Bhopal registration",
-    "JNCT PU student organization",
+    "JNCTPU student organization",
+    "ecell jnctpu registration",
   ],
   openGraph: {
-    title: "Apply for E-Cell JNCT PU Membership",
+    title: "Apply for E-Cell JNCTPU Membership",
     description:
       "Join the official student entrepreneurship community at JNCT Professional University, Bhopal. Build skills, network, and launch your startup.",
     url: `${siteUrl}/join`,

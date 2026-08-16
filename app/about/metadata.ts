@@ -6,21 +6,22 @@ const siteUrl = rawSiteUrl.startsWith("http://") || rawSiteUrl.startsWith("https
   : `https://${rawSiteUrl}`;
 
 export const metadata: Metadata = {
-  title: "Programs | E-Cell JNCTPU — Venture Incubation, Networking, Ideation & Scaling",
+  title: "About Us | E-Cell JNCTPU — Entrepreneurship Cell of JNCT Professional University",
   description:
-    "E-Cell JNCTPU's incubation program, networking, ideation, and scaling initiatives empower student entrepreneurs at JNCT Professional University, Bhopal.",
+    "Learn about E-Cell JNCTPU, the official Entrepreneurship Cell of JNCT Professional University, Bhopal. Empowering student founders through venture incubation, networking, ideation, and scaling programs.",
   keywords: [
+    "About E-Cell JNCTPU",
     "E-Cell JNCTPU programs",
     "venture incubation Bhopal",
     "student startup incubator Bhopal",
-    "JNCT entrepreneurship",
+    "JNCT entrepreneurship cell history",
     "startup ideation Bhopal",
     "scaling ventures JNCT",
   ],
   openGraph: {
-    title: "Programs & Initiatives | E-Cell JNCTPU",
+    title: "About Us | E-Cell JNCTPU — Entrepreneurship Cell",
     description:
-      "Venture incubation, networking, ideation, and scaling initiatives for student entrepreneurs at JNCT Professional University, Bhopal.",
+      "About E-Cell JNCTPU: Venture incubation, networking, ideation, and scaling initiatives for student entrepreneurs at JNCT Professional University, Bhopal.",
     url: `${siteUrl}/about`,
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
