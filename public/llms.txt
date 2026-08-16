@@ -1,0 +1,23 @@
+# E-Cell JNCTPU
+
+The official Entrepreneurship Cell of JNCT Professional University (formerly Jai Narain College of Technology), Bhopal. E-Cell JNCTPU acts as a campus startup incubator, innovation hub, and student builder community.
+
+## Core Mission
+- **Launch:** Helping student founders turn ideas into viable early-stage businesses.
+- **Connect:** Linking student developers, UI/UX designers, and business leads with industry mentors and investors.
+- **Innovate:** Hosting hackathons (like InnoHack), ideation sprints, and hands-on founder workshops.
+- **Grow:** Facilitating access to early-stage capital, pitch competitions, and official university incubation programs.
+
+## Key Sections & Pages
+
+- [Homepage](https://ecelljnctpu.vercel.app/) - Main overview, community stats, pillars, FAQs, and updates.
+- [About Us](https://ecelljnctpu.vercel.app/about) - History of E-Cell JNCTPU, venture incubation mission, detailed FAQs.
+- [Team](https://ecelljnctpu.vercel.app/team) - Directory of student leaders, technical coordinators, and domain heads (Core, Tech, Creatives, Marketing, Operations).
+- [Events](https://ecelljnctpu.vercel.app/events) - List of active, upcoming, and past startup summits, hackathons, and pitch events.
+- [Join Us](https://ecelljnctpu.vercel.app/join) - Recruitment portal for student coordinators and incubation cohorts.
+- [Portal / Login](https://ecelljnctpu.vercel.app/login) - Access point for registered members and student founders.
+
+## Contacts & Support
+- **Office Location:** E-Cell Startup Lab, JNCT Professional University, New Bypass Road, Karond, Bhopal, Madhya Pradesh 462022.
+- **Support Email:** ecell@jnctpu.ac.in
+- **Social Media:** [Instagram](https://www.instagram.com/ecell.jnctpu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==)

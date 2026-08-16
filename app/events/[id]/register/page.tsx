@@ -23,6 +23,11 @@ interface FieldItem {
   required: boolean;
 }
 
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ecelljnctpu.vercel.app";
+const siteUrl = rawSiteUrl.startsWith("http://") || rawSiteUrl.startsWith("https://")
+  ? rawSiteUrl
+  : `https://${rawSiteUrl}`;
+
 // ── Dynamic SEO Metadata generation ──
 export async function generateMetadata({
   params,
@@ -101,8 +106,57 @@ export default async function RegisterPage({
     errorMsg = "Failed to load the registration form. Please try reloading the page.";
   }
 
+  let isoDateString = "";
+  if (event && event.date) {
+    try {
+      isoDateString = new Date(event.date).toISOString();
+    } catch (e) {
+      isoDateString = event.date;
+    }
+  }
+
   return (
     <main className="min-h-screen bg-black text-white flex flex-col justify-between p-4 sm:p-6 font-sans overflow-x-hidden">
+      {event && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": event.title,
+              "description": event.description,
+              "startDate": isoDateString,
+              "eventStatus": "https://schema.org/EventScheduled",
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "location": {
+                "@type": "Place",
+                "name": event.venue || "JNCT Professional University",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "New Bypass Road, Karond",
+                  "addressLocality": "Bhopal",
+                  "addressRegion": "Madhya Pradesh",
+                  "addressCountry": "IN",
+                  "postalCode": "462022"
+                }
+              },
+              "organizer": {
+                "@type": "Organization",
+                "name": "E-Cell JNCT PU",
+                "url": siteUrl
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "INR",
+                "availability": "https://schema.org/InStock",
+                "url": `${siteUrl}/events/${event.id}/register`
+              }
+            })
+          }}
+        />
+      )}
       {/* Top navbar */}
       <nav className="max-w-6xl w-full mx-auto flex items-center justify-between py-2 sticky top-0 z-40 bg-black/60 backdrop-blur-md">
         <Link

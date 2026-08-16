@@ -177,8 +177,19 @@ const jsonLd = {
     "email": "ecell@jnctpu.ac.in",
     "url": `${siteUrl}/contact`
   },
+  "knowsAbout": [
+    "Entrepreneurship",
+    "Startup Incubation",
+    "Business Development",
+    "Technology Innovation",
+    "Venture Capital",
+    "Mentorship",
+    "Hackathons"
+  ],
   "sameAs": [
-    "https://www.instagram.com/ecell.jnctpu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+    "https://www.instagram.com/ecell.jnctpu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "https://www.linkedin.com/company/ecell-jnctpu",
+    "https://twitter.com/ecell_jnctpu"
   ]
 };
 
