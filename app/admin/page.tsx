@@ -13,7 +13,8 @@ import {
   FileSpreadsheet, 
   ExternalLink,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Pencil
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -302,6 +303,13 @@ export default function AdminDashboard() {
                           title="View Registration Form"
                         >
                           <ExternalLink className="w-4 h-4" />
+                        </Link>
+                        <Link
+                          href={`/admin/events/${event.id}`}
+                          className="clay-btn clay-btn-secondary p-2"
+                          title="Edit Event"
+                        >
+                          <Pencil className="w-4 h-4" />
                         </Link>
                         <button
                           onClick={() => handleDeleteEvent(event.id, event.title)}
