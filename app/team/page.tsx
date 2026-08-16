@@ -18,36 +18,35 @@ interface TeamMember {
 // --- Full Team Dataset ---
 const ALL_MEMBERS: TeamMember[] = [
   // Core Team (8 Members)
-  { id: "1", name: "Aarav Sharma", role: "PRESIDENT", domain: "core" },
-  { id: "2", name: "Diya Mehra", role: "VICE PRESIDENT", domain: "core" },
-  { id: "3", name: "Kabir Singh", role: "TECHNICAL HEAD", domain: "core" },
-  { id: "4", name: "Riya Kapoor", role: "MARKETING & PR LEAD", domain: "core" },
-  { id: "5", name: "Aryan Verma", role: "EVENTS MANAGER", domain: "core" },
-  { id: "6", name: "Ananya Goel", role: "STARTUP RELATIONS", domain: "core" },
-  { id: "7", name: "Rohan Malhotra", role: "CREATIVE DIRECTOR", domain: "core" },
-  { id: "8", name: "Sanya Gupta", role: "OPERATIONS HEAD", domain: "core" },
+  { id: "1", name: "Lakshyadeep", role: "PRESIDENT", domain: "core" },
+  { id: "2", name: "Yashaswi", role: "VICE PRESIDENT", domain: "core" },
+  { id: "3", name: "Avdesh", role: "CO-ORDINATOR HEAD", domain: "core" },
+  { id: "4", name: "Animesh", role: "OPERATIONAL HEAD", domain: "core" },
+  { id: "5", name: "Ritika", role: "R&D HEAD", domain: "core" },
+  { id: "6", name: "Rajneesh", role: "TECHNICAL HEAD", domain: "core" },
+  { id: "7", name: "Geetansh", role: "CORPORATE RELATIONS HEAD", domain: "core" },
+  { id: "8", name: "Bishal", role: "SOCIAL MEDIA & DESIGN HEAD", domain: "core" },
 
   // Technical Domain
-  { id: "9", name: "Devansh Mehta", role: "LEAD WEB DEVELOPER", domain: "technical" },
-  { id: "10", name: "Ishaan Malhotra", role: "FRONTEND DEVELOPER", domain: "technical" },
-  { id: "11", name: "Sneha Joshi", role: "BACKEND DEVELOPER", domain: "technical" },
-  { id: "12", name: "Tushar Sen", role: "APP DEVELOPER", domain: "technical" },
+  { id: "9", name: "Rohit", role: "R&D", domain: "technical" },
+  { id: "10", name: "Amit", role: "TECHNICAL", domain: "technical" },
+  { id: "11", name: "Shantanu", role: "TECHNICAL", domain: "technical" },
 
   // Creatives & Design
-  { id: "13", name: "Tanvi Roy", role: "LEAD UI/UX DESIGNER", domain: "creatives" },
-  { id: "14", name: "Arjun Saxena", role: "GRAPHICS DESIGNER", domain: "creatives" },
-  { id: "15", name: "Meera Nair", role: "VIDEO EDITOR", domain: "creatives" },
-  { id: "16", name: "Sahil Khanna", role: "CONTENT WRITER", domain: "creatives" },
+  { id: "12", name: "Lokesh", role: "S M & D", domain: "creatives" },
+  { id: "13", name: "Hariom", role: "S M & D", domain: "creatives" },
+  { id: "14", name: "Anit", role: "S M & D", domain: "creatives" },
 
   // Marketing & PR
-  { id: "17", name: "Kritika Sen", role: "OUTREACH MANAGER", domain: "marketing" },
-  { id: "18", name: "Rahul Varma", role: "SOCIAL MEDIA MANAGER", domain: "marketing" },
-  { id: "19", name: "Preeti Chaudhary", role: "PUBLIC RELATIONS EXECUTIVE", domain: "marketing" },
+  { id: "15", name: "Bhupendra Patwari", role: "CORPORATE RELATIONS", domain: "marketing" },
 
   // Operations
-  { id: "20", name: "Aman Kapoor", role: "LOGISTICS COORDINATOR", domain: "operations" },
-  { id: "21", name: "Yash Singhal", role: "EVENT OPERATIONS EXECUTIVE", domain: "operations" },
-  { id: "22", name: "Divya Sharma", role: "SPONSORSHIP MANAGER", domain: "operations" },
+  { id: "16", name: "Sidhi", role: "MANAGEMENT", domain: "operations" },
+  { id: "17", name: "Pavni", role: "MANAGEMENT", domain: "operations" },
+  { id: "18", name: "Kartavya", role: "MANAGEMENT", domain: "operations" },
+  { id: "19", name: "Lipika", role: "MANAGEMENT", domain: "operations" },
+  { id: "20", name: "Raghav Soni", role: "MANAGEMENT", domain: "operations" },
+  { id: "21", name: "Shrishti", role: "MANAGEMENT", domain: "operations" },
 ];
 
 // --- Domain Info for Filters ---

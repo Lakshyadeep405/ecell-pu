@@ -13,14 +13,14 @@ export default function MembersLayout({
   children: React.ReactNode;
 }) {
   const coreMembers = [
-    { name: "Aarav Sharma", role: "PRESIDENT" },
-    { name: "Diya Mehra", role: "VICE PRESIDENT" },
-    { name: "Kabir Singh", role: "TECHNICAL HEAD" },
-    { name: "Riya Kapoor", role: "MARKETING & PR LEAD" },
-    { name: "Aryan Verma", role: "EVENTS MANAGER" },
-    { name: "Ananya Goel", role: "STARTUP RELATIONS" },
-    { name: "Rohan Malhotra", role: "CREATIVE DIRECTOR" },
-    { name: "Sanya Gupta", role: "OPERATIONS HEAD" },
+    { name: "Lakshyadeep", role: "PRESIDENT" },
+    { name: "Yashaswi", role: "VICE PRESIDENT" },
+    { name: "Avdesh", role: "CO-ORDINATOR HEAD" },
+    { name: "Animesh", role: "OPERATIONAL HEAD" },
+    { name: "Ritika", role: "R&D HEAD" },
+    { name: "Rajneesh", role: "TECHNICAL HEAD" },
+    { name: "Geetansh", role: "CORPORATE RELATIONS HEAD" },
+    { name: "Bishal", role: "SOCIAL MEDIA & DESIGN HEAD" },
   ];
 
   const teamSchema = {
