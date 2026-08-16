@@ -22,13 +22,13 @@ const ALL_MEMBERS: TeamMember[] = [
   { id: "2", name: "Yashaswi", role: "VICE PRESIDENT", domain: "core" },
   { id: "3", name: "Avdesh", role: "CO-ORDINATOR HEAD", domain: "core" },
   { id: "4", name: "Animesh", role: "OPERATIONAL HEAD", domain: "core" },
-  { id: "5", name: "Ritika", role: "R&D HEAD", domain: "core" },
+  { id: "5", name: "Ritika", role: "RESEARCH & INNOVATION HEAD", domain: "core" },
   { id: "6", name: "Rajneesh", role: "TECHNICAL HEAD", domain: "core" },
   { id: "7", name: "Geetansh", role: "CORPORATE RELATIONS HEAD", domain: "core" },
   { id: "8", name: "Bishal", role: "SOCIAL MEDIA & DESIGN HEAD", domain: "core" },
 
   // Technical Domain
-  { id: "9", name: "Rohit", role: "R&D", domain: "technical" },
+  { id: "9", name: "Rohit", role: "RESEARCH & INNOVATION", domain: "technical" },
   { id: "10", name: "Amit", role: "TECHNICAL", domain: "technical" },
   { id: "11", name: "Shantanu", role: "TECHNICAL", domain: "technical" },
 

@@ -17,7 +17,7 @@ export default function MembersLayout({
     { name: "Yashaswi", role: "VICE PRESIDENT" },
     { name: "Avdesh", role: "CO-ORDINATOR HEAD" },
     { name: "Animesh", role: "OPERATIONAL HEAD" },
-    { name: "Ritika", role: "R&D HEAD" },
+    { name: "Ritika", role: "RESEARCH & INNOVATION HEAD" },
     { name: "Rajneesh", role: "TECHNICAL HEAD" },
     { name: "Geetansh", role: "CORPORATE RELATIONS HEAD" },
     { name: "Bishal", role: "SOCIAL MEDIA & DESIGN HEAD" },
