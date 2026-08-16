@@ -64,7 +64,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { title, description, date, venue, status, banner_url, fields } = body;
+    const { title, description, date, venue, status, banner_url, fields, summary, photos } = body;
 
     const updateData: any = {};
     if (title !== undefined) updateData.title = title;
@@ -73,6 +73,8 @@ export async function PUT(
     if (venue !== undefined) updateData.venue = venue;
     if (status !== undefined) updateData.status = status;
     if (banner_url !== undefined) updateData.banner_url = banner_url;
+    if (summary !== undefined) updateData.summary = summary;
+    if (photos !== undefined) updateData.photos = photos;
 
     const { data: event, error } = await supabaseAdmin
       .from("events")

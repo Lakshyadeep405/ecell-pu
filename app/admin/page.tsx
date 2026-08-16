@@ -35,6 +35,14 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState({ eventsCount: 0, registrationsCount: 0, pendingRequests: 0 });
+  const [filterTab, setFilterTab] = useState<"upcoming" | "past">("upcoming");
+
+  const filteredEvents = events.filter((event) => {
+    const eventDate = new Date(event.date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return filterTab === "upcoming" ? eventDate >= today : eventDate < today;
+  });
 
   useEffect(() => {
     fetchDashboardData();
@@ -213,18 +221,44 @@ export default function AdminDashboard() {
 
       {/* Main events table */}
       <div className="overflow-hidden clay-card">
-        <div className="p-4 border-b border-border bg-muted/40 font-black uppercase text-[10px] tracking-widest text-muted-foreground">
-          Event Lists
+        <div className="p-4 border-b border-border bg-muted/40 flex items-center justify-between">
+          <span className="font-black uppercase text-[10px] tracking-widest text-muted-foreground">
+            Event Lists
+          </span>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setFilterTab("upcoming")}
+              className={cn(
+                "px-3 py-1.5 text-[9px] font-black uppercase tracking-wider border transition-all rounded-full cursor-pointer",
+                filterTab === "upcoming"
+                  ? "bg-foreground text-background border-foreground shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]"
+                  : "bg-background text-muted-foreground border-border hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              Active & Upcoming
+            </button>
+            <button
+              onClick={() => setFilterTab("past")}
+              className={cn(
+                "px-3 py-1.5 text-[9px] font-black uppercase tracking-wider border transition-all rounded-full cursor-pointer",
+                filterTab === "past"
+                  ? "bg-foreground text-background border-foreground shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4)]"
+                  : "bg-background text-muted-foreground border-border hover:text-foreground hover:bg-muted/50"
+              )}
+            >
+              Past Events
+            </button>
+          </div>
         </div>
 
         {loading ? (
           <div className="text-center py-20 text-xs font-black uppercase tracking-widest text-muted-foreground">
             Synchronizing data files...
           </div>
-        ) : events.length === 0 ? (
+        ) : filteredEvents.length === 0 ? (
           <div className="text-center py-24 border border-dashed border-border m-4 bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
             <p className="text-muted-foreground text-xs font-black uppercase tracking-wider mb-6">
-              No events found in the database.
+              No {filterTab} events found in the database.
             </p>
             <Link
               href="/admin/events/new"
@@ -247,7 +281,7 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {events.map((event) => (
+                {filteredEvents.map((event) => (
                   <tr key={event.id} className="hover:bg-muted/10">
                     <td className="p-4 align-top">
                       <div className="font-[family-name:var(--font-outfit)] font-black uppercase text-foreground leading-tight">

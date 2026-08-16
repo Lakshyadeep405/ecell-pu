@@ -61,6 +61,7 @@ const PILLARS = [
 
 export default function Page() {
   const [highlights, setHighlights] = useState<any[]>([]);
+  const [pastEvents, setPastEvents] = useState<any[]>([]);
 
   useEffect(() => {
     async function loadHighlights() {
@@ -94,9 +95,21 @@ export default function Page() {
         } else {
           setHighlights([]);
         }
+
+        // Fetch past events
+        const { data: pastData, error: pastError } = await supabase
+          .from("events")
+          .select("*")
+          .eq("status", "published")
+          .lt("date", todayStr)
+          .order("date", { ascending: false });
+
+        if (pastError) throw pastError;
+        setPastEvents(pastData || []);
       } catch (err) {
         console.error("Error loading highlights:", err);
         setHighlights([]);
+        setPastEvents([]);
       }
     }
     loadHighlights();
@@ -255,6 +268,90 @@ export default function Page() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── PAST EVENTS MEMORIES SECTION ── */}
+      {pastEvents.length > 0 && (
+        <section className="relative overflow-hidden bg-black px-6 py-16 md:py-24 border-t border-white/5">
+          <div
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(255,255,255,0.01)_0%,_transparent_70%)]"
+            aria-hidden
+          />
+          <div className="relative mx-auto max-w-5xl">
+            <div className="mb-12 text-center">
+              <span className="liquid-glass rounded-full px-3 py-1 text-[9px] uppercase tracking-widest text-white/40 font-bold font-[family-name:var(--font-outfit)]">
+                Our Legacy
+              </span>
+              <h2
+                className="mt-4 text-3xl md:text-4xl font-serif text-white"
+                style={{ fontFamily: "var(--font-serif), serif" }}
+              >
+                Stories of <em>Innovation</em>
+              </h2>
+              <p className="mt-4 text-xs text-white/40 max-w-md mx-auto font-semibold">
+                Look back at our past pitch hackathons, bootcamps, and student launch achievements.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {pastEvents.map((ev) => {
+                const eventDate = new Date(ev.date);
+                const dateFormatted = eventDate.toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                });
+
+                return (
+                  <div
+                    key={ev.id}
+                    className="liquid-glass rounded-3xl border border-white/5 overflow-hidden flex flex-col justify-between hover:bg-white/[0.01] transition-colors"
+                  >
+                    <div className="p-6 space-y-4 flex-grow">
+                      <div>
+                        <span className="text-[8px] uppercase tracking-widest text-white/40 font-bold px-2 py-0.5 rounded border border-white/10 bg-white/5 font-[family-name:var(--font-outfit)]">
+                          Past Event
+                        </span>
+                        <h3 className="mt-2.5 text-base font-bold text-white uppercase tracking-tight font-[family-name:var(--font-outfit)]">
+                          {ev.title}
+                        </h3>
+                        <p className="text-[10px] font-bold text-[#D4AF37] mt-1">{dateFormatted} • {ev.venue}</p>
+                      </div>
+
+                      <p className="text-xs text-white/50 leading-relaxed font-medium">
+                        {ev.summary || ev.description || "Event completed successfully."}
+                      </p>
+
+                      {/* Photo Gallery (horizontal scroll) */}
+                      {ev.photos && ev.photos.length > 0 && (
+                        <div className="pt-2">
+                          <p className="text-[9px] font-black uppercase tracking-wider text-white/30 mb-2 font-[family-name:var(--font-outfit)]">
+                            Event Gallery
+                          </p>
+                          <div className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-white/10">
+                            {ev.photos.map((photoUrl: string, idx: number) => (
+                              <div
+                                key={idx}
+                                className="w-24 h-16 rounded-lg border border-white/10 overflow-hidden flex-shrink-0 relative group/photo cursor-zoom-in"
+                                onClick={() => window.open(photoUrl, "_blank")}
+                              >
+                                <img
+                                  src={photoUrl}
+                                  alt={`${ev.title} photo ${idx + 1}`}
+                                  className="w-full h-full object-cover transition-transform duration-300 group-hover/photo:scale-105"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

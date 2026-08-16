@@ -39,6 +39,8 @@ export default function EditEventPage() {
   const [venue, setVenue] = useState("");
   const [bannerUrl, setBannerUrl] = useState("");
   const [status, setStatus] = useState<"draft" | "published" | "closed">("published");
+  const [summary, setSummary] = useState("");
+  const [photos, setPhotos] = useState<string[]>([]);
 
   // Dynamic Custom Fields
   const [customFields, setCustomFields] = useState<CustomField[]>([]);
@@ -79,6 +81,8 @@ export default function EditEventPage() {
       setVenue(event.venue || "");
       setBannerUrl(event.banner_url || "");
       setStatus(event.status || "published");
+      setSummary(event.summary || "");
+      setPhotos(event.photos || []);
 
       // Format custom fields
       const formattedFields = (data.fields || []).map((f: any) => ({
@@ -188,6 +192,8 @@ export default function EditEventPage() {
           banner_url: bannerUrl,
           status,
           fields: customFields,
+          summary,
+          photos,
         }),
       });
 
@@ -204,6 +210,58 @@ export default function EditEventPage() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const isPastEvent = () => {
+    if (!date) return false;
+    const eventDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return eventDate < today;
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedMimeTypes.includes(file.type)) {
+      alert("Invalid file type. Only JPG, PNG, and WebP images are allowed.");
+      return;
+    }
+
+    const maxSizeBytes = 5 * 1024 * 1024;
+    if (file.size > maxSizeBytes) {
+      alert("File is too large. Maximum size is 5MB.");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("type", "banner");
+
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to upload photo.");
+      }
+
+      setPhotos((prev) => [...prev, data.url]);
+    } catch (err: any) {
+      alert(err.message || "Failed to upload photo.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRemovePhoto = (indexToRemove: number) => {
+    setPhotos((prev) => prev.filter((_, idx) => idx !== indexToRemove));
   };
 
   if (loading) {
@@ -469,6 +527,84 @@ export default function EditEventPage() {
             </div>
           )}
         </div>
+
+        {/* ── 3. Past Event Memories (only show if date is in the past) ── */}
+        {isPastEvent() && (
+          <div className="bg-card border-2 border-border p-6 shadow-[3px_3px_0px_#D4AF37] space-y-6">
+            <h3 className="font-[family-name:var(--font-outfit)] text-base font-black uppercase tracking-wide border-b-2 border-border pb-3 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-[#D4AF37]" />
+              3. Past Event Memories (Summary & Photo Gallery)
+            </h3>
+
+            <div className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
+                  Event Summary
+                </label>
+                <textarea
+                  rows={4}
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  placeholder="Provide a summary of the event (e.g. turnout, key highlights, winners, feedback)"
+                  className="w-full px-4 py-3 bg-background border-2 border-border text-foreground font-semibold focus:outline-none focus:border-[#D4AF37] text-sm rounded-none resize-none font-sans"
+                />
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-[10px] font-black uppercase tracking-wider text-muted-foreground block">
+                  Event Photo Gallery
+                </label>
+
+                {/* Upload Button */}
+                <div className="flex items-center gap-4">
+                  <div className="relative inline-flex items-center gap-2 px-4 py-2 border-2 border-border bg-background text-[10px] font-black uppercase tracking-wider shadow-[2px_2px_0px_#0A0A0A] dark:shadow-[2px_2px_0px_#F9FAFB] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#0A0A0A] dark:hover:shadow-[3px_3px_0px_#F9FAFB] transition-all cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoUpload}
+                      disabled={uploading}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:pointer-events-none"
+                    />
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploading ? "Uploading..." : "Add Photo"}</span>
+                  </div>
+                  <span className="text-[9px] text-muted-foreground uppercase font-bold">
+                    PNG, JPG, WEBP up to 5MB
+                  </span>
+                </div>
+
+                {/* Photo Grid */}
+                {photos.length === 0 ? (
+                  <div className="text-center py-10 border-dashed border-2 border-border bg-muted/10">
+                    <p className="text-muted-foreground text-xs font-semibold">
+                      No photos added to the gallery yet.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+                    {photos.map((photoUrl, idx) => (
+                      <div key={idx} className="group relative border-2 border-border p-1 bg-muted/20 aspect-video overflow-hidden">
+                        <img
+                          src={photoUrl}
+                          alt={`Gallery photo ${idx + 1}`}
+                          className="w-full h-full object-cover border border-border"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleRemovePhoto(idx)}
+                          className="absolute top-2 right-2 p-1 bg-black/80 text-red-500 border border-border hover:bg-red-500/10 transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+                          title="Remove Photo"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Save Event triggers */}
         <div className="bg-card border-2 border-border p-6 shadow-[3px_3px_0px_#D4AF37] flex flex-col sm:flex-row items-center justify-between gap-4">
