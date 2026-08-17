@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       "The builders, designers, marketers, and leaders powering student entrepreneurship at JNCT Professional University.",
     url: `${siteUrl}/team`,
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image1.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: `${siteUrl}/team`,

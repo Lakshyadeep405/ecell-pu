@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "Access the E-Cell student dashboard and administrative panel at JNCT Professional University, Bhopal.",
     url: `${siteUrl}/login`,
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image1.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: `${siteUrl}/login`,

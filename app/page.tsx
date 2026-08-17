@@ -33,7 +33,7 @@ export const metadata: Metadata = {
       "Empowering student founders at JNCT Professional University, Bhopal through mentorship, hackathons, incubation support, and early-stage capital.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image1.png",
         width: 1200,
         height: 630,
         alt: "E-Cell JNCTPU — Entrepreneurship Cell of JNCT Professional University",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: "E-Cell JNCTPU | Entrepreneurship Cell",
     description:
       "Fueling the startup spirit at JNCT Professional University. Hackathons, pitch events, mentorship & more.",
-    images: ["/og-image.png"],
+    images: ["/og-image1.png"],
   },
   alternates: {
     canonical: siteUrl,

@@ -85,7 +85,7 @@ export const metadata: Metadata = {
       "Empowering student entrepreneurs at JNCT Professional University through mentorship, hackathons, startup summits, and innovation programs. Be part of the movement.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image1.png",
         width: 1200,
         height: 630,
         alt: "E-Cell JNCTPU — Entrepreneurship Cell of JNCT Professional University",
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     title: "E-Cell JNCTPU | Entrepreneurship Cell",
     description:
       "Fueling the startup spirit at JNCT Professional University. Hackathons, pitch events, mentorship & more.",
-    images: ["/og-image.png"],
+    images: ["/og-image1.png"],
   },
 
   // ── Robots & Indexing ──────────────────────────────────────

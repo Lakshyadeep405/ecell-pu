@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       "About E-Cell JNCTPU: Venture incubation, networking, ideation, and scaling initiatives for student entrepreneurs at JNCT Professional University, Bhopal.",
     url: `${siteUrl}/about`,
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image1.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: `${siteUrl}/about`,

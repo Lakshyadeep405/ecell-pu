@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Join the official student entrepreneurship community at JNCT Professional University, Bhopal. Build skills, network, and launch your startup.",
     url: `${siteUrl}/join`,
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image1.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: `${siteUrl}/join`,

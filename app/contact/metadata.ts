@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     description:
       "Reach out to the Entrepreneurship Cell of JNCT Professional University, Bhopal for business queries, incubation support, or partnership inquiries.",
     url: `${siteUrl}/contact`,
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-image1.png", width: 1200, height: 630 }],
   },
   alternates: {
     canonical: `${siteUrl}/contact`,
