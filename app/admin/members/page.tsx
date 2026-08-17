@@ -52,6 +52,7 @@ export default function MembersAdminPage() {
   const [uploading, setUploading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [seeding, setSeeding] = useState(false);
 
   useEffect(() => {
     fetchMembers();
@@ -72,6 +73,29 @@ export default function MembersAdminPage() {
       setError(err.message || "An unexpected error occurred loading squad members.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSeedMembers = async () => {
+    if (!confirm("Are you sure you want to import the default 21 squad members into the database?")) {
+      return;
+    }
+    setSeeding(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/admin/members/seed", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to import default squad.");
+      }
+      fetchMembers();
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "An unexpected error occurred importing default squad.");
+    } finally {
+      setSeeding(false);
     }
   };
 
@@ -251,11 +275,32 @@ export default function MembersAdminPage() {
             <div className="text-center py-20 text-xs font-black uppercase tracking-widest text-muted-foreground">
               Retrieving squad rosters...
             </div>
+          ) : members.length === 0 ? (
+            <div className="text-center py-12 px-6 m-4 border border-dashed border-border bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)] space-y-4">
+              <FolderMinus className="w-8 h-8 text-[#D4AF37] mx-auto" />
+              <div className="space-y-1">
+                <p className="text-foreground text-sm font-black uppercase tracking-wider">
+                  No squad members in DB
+                </p>
+                <p className="text-muted-foreground text-[10px] sm:text-xs max-w-md mx-auto leading-relaxed">
+                  The public website is currently showing 21 default team members from code config.
+                  Import them to the database now so you can edit their portfolios or delete them.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleSeedMembers}
+                disabled={seeding}
+                className="clay-btn clay-btn-primary px-6 py-2.5 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-2"
+              >
+                {seeding ? "Importing..." : "Import Default Squad"}
+              </button>
+            </div>
           ) : filteredMembers.length === 0 ? (
             <div className="text-center py-20 m-4 border border-dashed border-border bg-muted/10 rounded-2xl shadow-[inset_1px_1px_3px_rgba(0,0,0,0.02)]">
               <FolderMinus className="w-8 h-8 text-[#D4AF37] mx-auto mb-3" />
               <p className="text-muted-foreground text-xs font-black uppercase tracking-wider">
-                No squad members found.
+                No squad members found matching search.
               </p>
             </div>
           ) : (
