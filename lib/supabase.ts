@@ -17,12 +17,24 @@ const isPlaceholder = (url: string, key: string) => {
 
 // Chainable mock client for database queries during evaluation/development
 const createMockClient = () => {
-  const queryChain = {
+  const queryChain: any = {
     select: function() { return this; },
+    insert: function() { return this; },
+    update: function() { return this; },
+    delete: function() { return this; },
+    upsert: function() { return this; },
     eq: function() { return this; },
     neq: function() { return this; },
+    gt: function() { return this; },
     gte: function() { return this; },
+    lt: function() { return this; },
     lte: function() { return this; },
+    in: function() { return this; },
+    is: function() { return this; },
+    like: function() { return this; },
+    ilike: function() { return this; },
+    contains: function() { return this; },
+    range: function() { return this; },
     order: function() { return this; },
     limit: function() { return this; },
     single: async function() { return { data: null, error: null }; },

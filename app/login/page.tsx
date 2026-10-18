@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { 
   ArrowLeft, User, Mail, Phone, School, GraduationCap, Sparkles, LogIn, CheckCircle2,
-  Home, Users, CalendarDays, Instagram, Linkedin, Twitter
+  Home, Users, CalendarDays, Instagram, Linkedin, Twitter, BookOpen
 } from "lucide-react";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 
@@ -14,6 +14,7 @@ const navItems = [
   { name: "About", url: "/about", icon: User },
   { name: "Team", url: "/team", icon: Users },
   { name: "Events", url: "/events", icon: CalendarDays },
+  { name: "Blogs", url: "/blogs", icon: BookOpen },
   { name: "Contact", url: "/contact", icon: Mail },
   { name: "Portal", url: "/login", icon: LogIn },
 ];

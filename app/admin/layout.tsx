@@ -12,7 +12,8 @@ import {
   LayoutDashboard, 
   Menu, 
   X,
-  Sparkles
+  Sparkles,
+  BookOpen
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Events Dashboard", href: "/admin", icon: CalendarDays },
     { name: "Manage Team", href: "/admin/members", icon: Users2 },
     { name: "Join Requests", href: "/admin/join-requests", icon: UserCheck },
+    { name: "Blog Reviews", href: "/admin/blogs", icon: BookOpen },
   ];
 
   return (

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { 
   Home, User, Users, CalendarDays, Mail, LogIn, Rocket, Handshake, Lightbulb, Trophy, 
-  Instagram, Linkedin, Twitter 
+  Instagram, Linkedin, Twitter, BookOpen
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavBar } from "@/components/ui/tubelight-navbar";
@@ -13,6 +13,7 @@ const navItems = [
   { name: "About", url: "/about", icon: User },
   { name: "Team", url: "/team", icon: Users },
   { name: "Events", url: "/events", icon: CalendarDays },
+  { name: "Blogs", url: "/blogs", icon: BookOpen },
   { name: "Contact", url: "/contact", icon: Mail },
   { name: "Portal", url: "/login", icon: LogIn },
 ];

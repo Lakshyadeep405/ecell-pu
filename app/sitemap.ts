@@ -45,6 +45,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${siteUrl}/blogs`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/blogs/submit`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${siteUrl}/login`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -73,6 +85,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: lastMod,
           changeFrequency: "monthly",
           priority: 0.6,
+        });
+      });
+    }
+
+    const { data: blogs } = await supabase
+      .from("blogs")
+      .select("slug, created_at")
+      .eq("status", "published");
+
+    if (blogs && blogs.length > 0) {
+      blogs.forEach((blog: { slug: string; created_at?: string | null }) => {
+        dynamicPaths.push({
+          url: `${siteUrl}/blogs/${blog.slug}`,
+          lastModified: blog.created_at ? new Date(blog.created_at) : new Date(),
+          changeFrequency: "weekly",
+          priority: 0.7,
         });
       });
     }
