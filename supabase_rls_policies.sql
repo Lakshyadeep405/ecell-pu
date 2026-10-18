@@ -202,19 +202,20 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 -- Seed Initial Blogs
-INSERT INTO blogs (title, slug, author_name, author_role, summary, content, cover_image, category, read_time, status)
+INSERT INTO blogs (title, slug, author_name, author_role, summary, content, cover_image, category, read_time, status, created_at)
 VALUES 
 (
   'Entrepreneurship: One Idea Can Change Everything',
   'entrepreneurship-one-idea-can-change-everything',
-  'Student Contributor',
-  'E-Cell Member & Tech Enthusiast',
+  'Raghav',
+  'E-Cell Member & Management Team',
   'Entrepreneurship is all about starting something new with an idea and turning it into reality. It is not just about earning money, but solving problems and helping people.',
   'Entrepreneurship is all about starting something new with an idea and turning it into reality. I think entrepreneurship is not just about earning money, but also about solving problems and helping people. An entrepreneur is someone who takes risks, works hard, and tries to make their ideas successful. In today''s world, many young people are starting their own businesses and creating new opportunities. Students can also become entrepreneurs by identifying problems around them and finding simple solutions. For example, a student can develop an app to make college event registrations easier or start a small business with a unique idea. However, starting a business is not always easy because there can be financial problems, competition, and failures. But I believe that failure is a part of learning, and we should never give up because of it. With hard work, patience, confidence, and proper planning, anyone can take the first step towards success. In my opinion, a big business always starts with a small idea, and the most important thing is to believe in yourself and have the courage to start.',
   'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
   'Entrepreneurship',
   '2 min read',
-  'published'
+  'published',
+  '2026-10-09T10:00:00.000Z'
 ),
 (
   'Yearning: The Driving Force Behind Entrepreneurship',
@@ -238,7 +239,8 @@ Every great venture begins with an idea, but the courage to pursue it often begi
   'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
   'Mindset & Innovation',
   '3 min read',
-  'published'
+  'published',
+  '2026-10-12T10:00:00.000Z'
 ),
 (
   'BEYOND THE CLASSROOM - The Untold Journey of a Student Entrepreneur',
@@ -260,7 +262,8 @@ Remember, you don''t have to wait until graduation to become an entrepreneur—y
   'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
   'Student Entrepreneurship',
   '2 min read',
-  'published'
+  'published',
+  '2026-10-05T10:00:00.000Z'
 ),
 (
   'Entrepreneurship: How to Turn Your Idea into a Successful Business',
@@ -316,6 +319,7 @@ Do you have a business idea? Share it in the comments and take your first step t
   'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
   'Startup Guide',
   '4 min read',
-  'published'
+  'published',
+  '2026-10-07T10:00:00.000Z'
 )
 ON CONFLICT (slug) DO NOTHING;

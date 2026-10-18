@@ -17,27 +17,6 @@ export interface BlogPost {
 
 export const INITIAL_BLOGS: BlogPost[] = [
   {
-    id: "blog-seed-1",
-    title: "Entrepreneurship: One Idea Can Change Everything",
-    slug: "entrepreneurship-one-idea-can-change-everything",
-    author_name: "Student Contributor",
-    author_role: "E-Cell Member & Tech Enthusiast",
-    summary:
-      "Entrepreneurship is all about starting something new with an idea and turning it into reality. It is not just about earning money, but solving problems and helping people.",
-    content: `Entrepreneurship is all about starting something new with an idea and turning it into reality. I think entrepreneurship is not just about earning money, but also about solving problems and helping people. An entrepreneur is someone who takes risks, works hard, and tries to make their ideas successful.
-
-In today's world, many young people are starting their own businesses and creating new opportunities. Students can also become entrepreneurs by identifying problems around them and finding simple solutions. For example, a student can develop an app to make college event registrations easier or start a small business with a unique idea.
-
-However, starting a business is not always easy because there can be financial problems, competition, and failures. But I believe that failure is a part of learning, and we should never give up because of it.
-
-With hard work, patience, confidence, and proper planning, anyone can take the first step towards success. In my opinion, a big business always starts with a small idea, and the most important thing is to believe in yourself and have the courage to start.`,
-    cover_image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
-    category: "Entrepreneurship",
-    read_time: "2 min read",
-    status: "published",
-    created_at: "2026-10-18T10:00:00.000Z",
-  },
-  {
     id: "blog-seed-2",
     title: "Yearning: The Driving Force Behind Entrepreneurship",
     slug: "yearning-the-driving-force-behind-entrepreneurship",
@@ -62,32 +41,28 @@ Every great venture begins with an idea, but the courage to pursue it often begi
     category: "Mindset & Innovation",
     read_time: "3 min read",
     status: "published",
-    created_at: "2026-10-18T11:00:00.000Z",
+    created_at: "2026-10-12T10:00:00.000Z",
   },
   {
-    id: "blog-seed-3",
-    title: "BEYOND THE CLASSROOM - The Untold Journey of a Student Entrepreneur",
-    slug: "beyond-the-classroom-the-untold-journey-of-student-entrepreneur",
-    author_name: "Pavni",
+    id: "blog-seed-1",
+    title: "Entrepreneurship: One Idea Can Change Everything",
+    slug: "entrepreneurship-one-idea-can-change-everything",
+    author_name: "Raghav",
     author_role: "E-Cell Member & Management Team",
     summary:
-      "Entrepreneurship is often presented as filled with freedom, wisdom, and success, but student entrepreneurs balance exams, assignments, tight budgets, and uncertainty. Discover how campus ideas turn into sustainable innovations.",
-    content: `Entrepreneurship is often presented as a journey which is filled with freedom, wisdom, ideas, knowledge, courage, and success.
+      "Entrepreneurship is all about starting something new with an idea and turning it into reality. It is not just about earning money, but solving problems and helping people.",
+    content: `Entrepreneurship is all about starting something new with an idea and turning it into reality. I think entrepreneurship is not just about earning money, but also about solving problems and helping people. An entrepreneur is someone who takes risks, works hard, and tries to make their ideas successful.
 
-Usually, people barely discuss the failures and sacrifices they face. Student entrepreneurs have to balance examinations, assignments, a limited budget, and constant uncertainty about whether their idea will succeed.
+In today's world, many young people are starting their own businesses and creating new opportunities. Students can also become entrepreneurs by identifying problems around them and finding simple solutions. For example, a student can develop an app to make college event registrations easier or start a small business with a unique idea.
 
-Students could explore businesses that collect reusable college material, create exchange networks for old books, or transform discarded materials into something useful. The challenge is to build a model that is genuinely useful, safe, affordable, and financially sustainable—not simply to label a product as eco-friendly.
+However, starting a business is not always easy because there can be financial problems, competition, and failures. But I believe that failure is a part of learning, and we should never give up because of it.
 
-Students can also use digital tools to test a concept more quickly than might have been possible in the past. This can help entrepreneurs research the market, generate ideas, create engaging content, develop prototypes, and automate repetitive tasks.
-
-CONCLUSION: Entrepreneurship is not just about building a business; it is about turning ideas into reality! With creativity, courage, and the right use of technology, students can transform a small idea into meaningful innovation.
-
-Remember, you don't have to wait until graduation to become an entrepreneur—your journey begins today!`,
-    cover_image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
-    category: "Student Entrepreneurship",
+With hard work, patience, confidence, and proper planning, anyone can take the first step towards success. In my opinion, a big business always starts with a small idea, and the most important thing is to believe in yourself and have the courage to start.`,
+    cover_image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+    category: "Entrepreneurship",
     read_time: "2 min read",
     status: "published",
-    created_at: "2026-10-18T12:00:00.000Z",
+    created_at: "2026-10-09T10:00:00.000Z",
   },
   {
     id: "blog-seed-4",
@@ -146,7 +121,32 @@ Do you have a business idea? Share it in the comments and take your first step t
     category: "Startup Guide",
     read_time: "4 min read",
     status: "published",
-    created_at: "2026-10-18T13:00:00.000Z",
+    created_at: "2026-10-07T10:00:00.000Z",
+  },
+  {
+    id: "blog-seed-3",
+    title: "BEYOND THE CLASSROOM - The Untold Journey of a Student Entrepreneur",
+    slug: "beyond-the-classroom-the-untold-journey-of-student-entrepreneur",
+    author_name: "Pavni",
+    author_role: "E-Cell Member & Management Team",
+    summary:
+      "Entrepreneurship is often presented as filled with freedom, wisdom, and success, but student entrepreneurs balance exams, assignments, tight budgets, and uncertainty. Discover how campus ideas turn into sustainable innovations.",
+    content: `Entrepreneurship is often presented as a journey which is filled with freedom, wisdom, ideas, knowledge, courage, and success.
+
+Usually, people barely discuss the failures and sacrifices they face. Student entrepreneurs have to balance examinations, assignments, a limited budget, and constant uncertainty about whether their idea will succeed.
+
+Students could explore businesses that collect reusable college material, create exchange networks for old books, or transform discarded materials into something useful. The challenge is to build a model that is genuinely useful, safe, affordable, and financially sustainable—not simply to label a product as eco-friendly.
+
+Students can also use digital tools to test a concept more quickly than might have been possible in the past. This can help entrepreneurs research the market, generate ideas, create engaging content, develop prototypes, and automate repetitive tasks.
+
+CONCLUSION: Entrepreneurship is not just about building a business; it is about turning ideas into reality! With creativity, courage, and the right use of technology, students can transform a small idea into meaningful innovation.
+
+Remember, you don't have to wait until graduation to become an entrepreneur—your journey begins today!`,
+    cover_image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
+    category: "Student Entrepreneurship",
+    read_time: "2 min read",
+    status: "published",
+    created_at: "2026-10-05T10:00:00.000Z",
   },
 ];
 
